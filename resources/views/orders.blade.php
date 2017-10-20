@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>title</title>
-	<link rel="stylesheet" href="stylesheet.css" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
+	<script src="js/sorttable.js"></script>
 	<style>
 		html {
 		  -webkit-box-sizing: border-box;
@@ -468,7 +468,7 @@
 		<button class="process right">Process</button>
 	</header>
 	<main>
-		<table class="full-scrollable">
+		<table class="full-scrollable sortable">
 			<thead>
 				<tr>
 					<th><input type="checkbox" /></th>
@@ -504,7 +504,7 @@
 								</ul>
 							</nav>
 						</td>
-						<td>
+						<td sorttable_customkey="{{ $order->ordertime->time_placed->timestamp }}">
 							<details>
 								<summary>
 										{{ $order->ordertime->time_placed->format('d/m/y H:i') }}
@@ -534,11 +534,11 @@
 							{{ $order->service }}
 							<strong>{{ $order->courier_code }}</strong> &times; {{ $order->parcel_count }}
 						</td>
-						<td>
-							Weight: {{ $order->weight }}g<br/>
-							Length: {{ $order->length }}cm
+						<td sorttable_customkey="{{ $order->weight * 1000 + $order->length }}">
+							Weight: {{ number_format($order->weight / 1000, 3) }}kg<br/>
+							Length: {{ number_format($order->length / 100, 2) }}m
 						</td>
-						<td>
+						<td sorttable_customkey="{{ $order->total_price }}">
 							@foreach ($order->products as $i => $product)
 								{{ $product->quantity }} &times;
 								<strong>{{ $product->sku }}</strong>
