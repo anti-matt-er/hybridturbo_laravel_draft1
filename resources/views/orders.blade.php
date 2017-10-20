@@ -29,7 +29,7 @@
 		body {
 			font-family: 'Rubik', sans-serif;
 			font-size: 13px;
-			color: #263238;
+			color: #37474F;
 			text-rendering: optimizeSpeed;
 			display: flex;
 			height: 100%;
@@ -45,15 +45,21 @@
 		}
 
 		header {
-			background: #CFD8DC;
-			height: 3em;
+			background: #546E7A;
+			color: #ECEFF1;
+			height: 2.5em;
+		}
+
+		header * {
+			vertical-align:top;
+			transition: all 0.2s;
 		}
 
 		footer {
-			background: #CFD8DC;
-			box-shadow: 0px -5px 20px 0px rgba(0,0,0,0.5);
+			background: #263238;
+			color: #fff;
+			box-shadow: 0px -5px 20px 0px rgba(0,0,0,0.75);
 			height: 2em;
-			text-align: right;
 			padding: 0.5em;
 			z-index: 5;
 			position: relative;
@@ -62,14 +68,15 @@
 		main {
 			flex: 1 1 auto;
 			position: relative;
+			overflow-y: hidden;
+			overflow-x: auto;
+			width: 100%;
 		}
 
 		.full-scrollable
 		{
 		    border-collapse: collapse;
 		    table-layout: fixed;
-		    width: 100%;
-		    overflow: auto;
 		    position: absolute;
 		    height: 100%;
 		    display: flex;
@@ -80,23 +87,21 @@
 		{
 		    display: flex;
 		    flex-flow: column;
-		    width: 100%;
-		    min-width: 100%;
-		    max-width: 100%;
+				overflow-y: scroll;
+				overflow-x: hidden;
 		}
 
 		.full-scrollable thead {
 			flex: 0 0 auto;
 			position: relative;
 		    overflow-y: scroll;
-		    box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.5);
+		    box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.75);
 		    z-index: 5;
 		}
 
-		.full-scrollable tbody 
+		.full-scrollable tbody
 		{
 		   flex: 1 1 auto;
-		   overflow-y: scroll;
 		   height: 100%;
 		}
 
@@ -122,10 +127,15 @@
 			z-index: 10;
 		}
 
+		.full-scrollable tbody tr:first-child td:nth-child(4),
+		.full-scrollable tbody tr:last-child td:nth-child(4)
+		{
+			z-index: 9;
+		}
+
 		.full-scrollable tr:nth-child(odd) td
 		{
 			background: #F4F5FB;
-			background-clip: padding-box;
 		}
 
 		.full-scrollable tr:nth-child(even) td
@@ -133,31 +143,20 @@
 			background: #E8EAF6;
 		}
 
-		.full-scrollable tbody tr:nth-child(odd) th
-		{
-			background: #CFCFCF;
-		}
-
-		.full-scrollable tbody tr:nth-child(even) th
+		.full-scrollable tbody th
 		{
 			background: #B0BEC5;
+			border-right: none;
 		}
 
 		.full-scrollable th,
 		.full-scrollable td
 		{
 			width: 9%;
-			min-width: 9%;
+			min-width: 104px;
 		    max-width: 9%;
 		    border-right: 1px solid #ccc;
 		    font-weight: normal;
-		}
-
-		.full-scrollable tbody th
-		{
-			background: #bbb;
-			color: #fff;
-			border-right: none;
 		}
 
 		.full-scrollable thead th
@@ -166,6 +165,7 @@
 			color: #fff;
 			border-bottom: 1px solid #222;
 			border-right: 1px solid #666;
+			height: 3em;
 		}
 
 		.full-scrollable tbody tr:last-child td,
@@ -177,33 +177,46 @@
 		.full-scrollable th:first-child,
 		.full-scrollable td:first-child
 		{
-			width: 2%;
-			min-width: 2%;
-			max-width: 2%;
+			width: 22px;
+			min-width: 22px;
+			max-width: 22px;
 		}
 
 		.full-scrollable th:nth-child(2),
 		.full-scrollable td:nth-child(2)
 		{
-			width: 4%;
-			min-width: 4%;
-			max-width: 4%;
+			width: 6%;
+			min-width: 72px;
+			max-width: 6%;
+		}
+
+		.full-scrollable td:nth-child(2)
+		{
+			font-variant: small-caps;
+			vertical-align: middle;
+			text-align: center;
 		}
 
 		.full-scrollable th:last-child,
 		.full-scrollable td:last-child
 		{
-			width: 31%;
-			min-width: 31%;
-			max-width: 31%;
+			width: 30%;
+			min-width: 160px;
+			max-width: 30%;
 		}
 
+		.full-scrollable:not(.hack):not(.hack) td
+		{
+			padding: 0.5em;
+			vertical-align: top;
+			background-clip: padding-box;
+		}
 
 
 		input[type="search"] {
 			display: inline-block;
 			padding: 0;
-			font-size: 2em;
+			font-size: 1.7em;
 			border-radius: 0;
 			-webkit-appearance: none;
 			background: #ECEFF1;
@@ -217,7 +230,7 @@
 			/*box-shadow: 0 0 0 0.5em #B0BEC5;*/
 			height: 100%;
 			width: 15%;
-			transition: all 0.2s;
+			min-width: 10em;
 		}
 		::-webkit-input-placeholder { /* Chrome */
 		  	color: #B0BEC5;
@@ -256,26 +269,37 @@
 				#B0BEC5 90%
 			);
 		}
-		input[type="submit"], button {
+		input[type="submit"], button, .dropdown ul li {
 			padding: 0;
 			border-radius: 0;
 			-webkit-appearance: none;
 			border: none;
 			padding: 0.2em 0.75em;
 			background: #B0BEC5;
-			color: #455A64;
+			color: #37474F;
+			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 		}
-		header input[type="submit"], header button {
+		header input[type="submit"], header button, header .dropdown {
+			position: relative;
 			display: inline-block;
-			font-size: 2em;
+			font-size: 1.7em;
+			top: -1px;
+		}
+		header .dropdown ul,
+		header .dropdown ul > li {
 			height: 100%;
 		}
-		input[type="submit"]:hover, button:hover {
-			background: #90A4AE;
-			color: #37474F;
+		header .dropdown ul > li {
+			height: 100%;
+			line-height: 120%;
 		}
-		h3 {
-			margin: 0 0 0.5em;
+		.dropdown.right ul ul {
+				left: auto;
+				right: 0;
+		}
+		input[type="submit"]:hover, button:hover, .dropdown ul li:hover {
+			background: #CFD8DC;
+			color: #0277BD;
 		}
 		hr {
 		    margin: 0.3em;
@@ -293,23 +317,166 @@
 			color: #03A9F4;
 			border-bottom: 2px dotted;
 		}
-	</style>
+		.dropdown * {
+		    transition: all 0.1s;
+		}
+		.dropdown ul {
+		    padding: 0;
+		    margin: 0;
+		    display: inline-block;
+		    font-size: inherit;
+				cursor: default;
+		}
+		.dropdown li {
+		    display: inline-block;
+		    font-size: inherit;
+		}
+		.dropdown > ul > li:after {
+    		content: ' \25bc';
+		}
+		.dropdown ul li {
+				position: relative;
+		}
+		.dropdown ul ul {
+				min-width: 100%;
+		    display: none;
+		    position: absolute;
+		    top: 100%;
+		    left: 0;
+		    white-space: nowrap;
+		    border: inherit;
+		    border-top: none;
+				z-index: 50;
+		}
+		.dropdown ul li:hover > ul {
+		    display: inherit;
+		}
+		.dropdown ul ul li {
+		    float: none;
+		    display: block;
+		    position: relative;
+		}
+		details div {
+		  display: none;
+		}
+		details[open] div {
+			display: block;
+		}
+		summary {
+			display: block;
+			cursor: default;
+			outline: none;
+			-webkit-touch-callout: none; /* iOS Safari */
+			-webkit-user-select: none; /* Safari */
+			 -khtml-user-select: none; /* Konqueror HTML */
+				 -moz-user-select: none; /* Firefox */
+					-ms-user-select: none; /* Internet Explorer/Edge */
+							user-select: none; /* Non-prefixed version, currently
+																		supported by Chrome and Opera */
+		}
+	  summary::-webkit-details-marker {
+		  display: none;
+		}
+		summary::before {
+		  content: '\25BA';
+		  padding-right: 0.1em;
+		}
+		details[open] > summary::before {
+		  content: '\25BC';
+		}
+		.right {
+			float: right;
+		}
+		.process {
+			background: #4CAF50;
+			color: #004D40;
+		}
+		.process:hover {
+			background: #00E676;
+		}
+		.headerText {
+			font-size: 1.7em;
+			line-height: 150%;
+			padding: 0 1em;
+		}
+
+		input[type="submit"]:not(.hack):not(.hack), button:not(.hack):not(.hack), .dropdown ul li:not(.hack):not(.hack) {
+			background-image: linear-gradient(
+				rgba(255, 255, 255, 0.5),
+				transparent 60%,
+				rgba(0, 0, 0, 0.05) 70%,
+               	transparent
+			);
+		}
+
+		table tbody tr th.Printed:not(.hack):not(.hack) {
+				background: #F44336;
+		}
+		table tbody tr th.Scanned:not(.hack):not(.hack) {
+				background: #4CAF50;
+		}
+		table tbody tr th.Dispatched:not(.hack):not(.hack) {
+				background: #00BCD4;
+		}
+		table tbody tr th.Void:not(.hack):not(.hack) {
+				background: #880E4F;
+		}
+		table tbody tr th.Hold:not(.hack):not(.hack) {
+				background: #FFC107;
+		}
+
+		@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		   .full-scrollable {
+				 	width: 100%;
+			 }
+		}
+		@supports (-ms-accelerator:true) {
+				.full-scrollable {
+					 width: 100%;
+				}
+		}
+			</style>
 </head>
 <body>
 	<header>
-		<input type="search" placeholder="Search..."><input type="submit" value="&#9658;">
+		<input type="search" placeholder="Search..."><input type="submit" value="&#9658;"><!--
+		--><nav class="dropdown">
+			<ul>
+				<li>
+					Key
+					<ul>
+						<li>Foo</li>
+						<li>Bar</li>
+						<li>Looooooooooong cat is long</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<nav class="dropdown right">
+			<ul>
+				<li>
+					Action
+					<ul>
+						<li>Foo</li>
+						<li>Bar</li>
+						<li>Looooooooooong cat is long</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<button class="process right">Process</button>
 	</header>
 	<main>
 		<table class="full-scrollable">
 			<thead>
 				<tr>
 					<th><input type="checkbox" /></th>
-					<th>Action</th>
+					<th>Status</th>
 					<th>Reference</th>
 					<th>Time</th>
+					<th>Source</th>
 					<th>Customer</th>
 					<th>Shipping</th>
-					<th>Total Price</th>
 					<th>Consignment</th>
 					<th>Dimensions</th>
 					<th>Items</th>
@@ -318,19 +485,44 @@
 			<tbody>
 				@foreach ($orders as $order)
 					<tr>
-						<th><input type="checkbox" /></th>
-						<td><button>Action</button></td>
+						<th class="{{ $order->status or 'Generated'}}"><input type="checkbox"/></th>
+						<td>{{ $order->status or 'Generated'}}</td>
 						<td>
-							<h3>{{ $order->reference }}</h3><br/>
+							<strong>{{ $order->reference }}</strong><br/>
 							{{ $order->order_id }}<br/>
-							({{ $order->source }} - {{ $order->account }})
+							<nav class="dropdown">
+								<ul>
+									<li>
+										Action
+										<ul>
+											<li>Foo</li>
+											<li>Bar</li>
+											<li>Looooooooooong cat is long</li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
 						</td>
 						<td>
-							<strong>{{ $order->ordertime->time_placed }}</strong><br/>
-							{{ $order->ordertime->time_retrieved }}
+							<details>
+								<summary>
+										{{ $order->ordertime->time_placed->format('d/m/y H:i') }}
+								</summary>
+								<div>
+								@foreach (Schema::getColumnListing('ordertime') as $i => $timeColumn)
+										@if ($timeColumn != 'order_reference' && !is_null($order->ordertime->$timeColumn))
+												<strong>{{ ucwords(str_replace('_', ' ', $timeColumn)) }}:</strong><br/>
+												{{ $order->ordertime->$timeColumn->format('d/m/y H:i') }}<br/>
+										@endif
+								@endforeach
+								</div>
+							</details>
 						</td>
 						<td>
-							{{ $order->customer->first_name }} {{ $order->customer->last_name }}
+							{{ $order->source }} - {{ $order->account }}
+						</td>
+						<td>
+							{{ $order->customer->first_name }} {{ $order->customer->last_name }}<br/>
 						</td>
 						<td>
 							{{ $order->address->first_name }} {{ $order->address->last_name }}<br/>
@@ -338,11 +530,7 @@
 							<strong>{{ $order->address->postal_code }}</strong> ({{ $order->address->country_code}})
 						</td>
 						<td>
-							&pound;{{ $order->total_price }}
-						</td>
-						<td>
-							{{ $order->service }}<br/>
-							<br/>
+							{{ $order->service }}
 							<strong>{{ $order->courier_code }}</strong> &times; {{ $order->parcel_count }}
 						</td>
 						<td>
@@ -359,6 +547,7 @@
 									<hr/>
 								@endif
 							@endforeach
+							<p class="right"><strong>Total:</strong> &pound;{{ number_format($order->total_price, 2) }}</p>
 						</td>
 					</tr>
 				@endforeach
@@ -366,7 +555,8 @@
 		</table>
 	</main>
 	<footer>
-		Last refreshed <strong>{{ date('Y-m-d H:i') }}</strong>
+		<span>Showing {{ count($orders) }} orders</span>
+		<span class="right">Last refreshed <strong>{{ date('Y-m-d H:i') }}</strong></span>
 	</footer>
 </body>
 </html>

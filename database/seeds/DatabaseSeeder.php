@@ -140,13 +140,17 @@ class DatabaseSeeder extends Seeder
                'international' => true,
                'recorded' => true,
            ]);
-        $orders = factory(App\Models\Order::class, 100)->create()->each(function($order) {
+        $orders = factory(App\Models\Order::class, 1000)->create()->each(function($order) {
         	$order->ordertime()->save(factory(App\Models\Ordertime::class)->make());
         	if (mt_rand(0, 1) === 0) {
 	        	$order->trackings()->saveMany(factory(App\Models\Tracking::class, mt_rand(1, 3))->make());
 	        }
 	        $order->save();
-        	$order->products()->saveMany(factory(App\Models\Product::class, mt_rand(1, 5))->make());
+          $productCount = 1;
+          if (mt_rand(0, 3) === 0) {
+              $productCount = mt_rand(1, 5);
+          }
+        	$order->products()->saveMany(factory(App\Models\Product::class, $productCount)->make());
         });
     }
 }

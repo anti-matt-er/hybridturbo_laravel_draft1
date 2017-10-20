@@ -18,7 +18,7 @@ $factory->define(App\Models\Order::class, function (Faker\Generator $faker) {
         'account' => $faker->randomElement(['Elixir', 'ProSalt']),
         'total_price' => $faker->randomFloat(2, 1, 999),
         'service' => $faker->randomElement(['Standard', 'Expedited']),
-        'status' => $faker->optional(0.9)->randomElement(['Generated', 'Printed', 'Scanned', 'Dispatched', 'Void']),
+        'status' => $faker->optional(0.4)->randomElement(['Generated', 'Printed', 'Scanned', 'Dispatched', 'Void', 'Hold']),
         'parcel_count' => $faker->optional(0.3, 1)->numberBetween(1, 8),
         'weight' => $faker->numberBetween(100, 40000),
         'length' => $faker->numberBetween(1, 300),
