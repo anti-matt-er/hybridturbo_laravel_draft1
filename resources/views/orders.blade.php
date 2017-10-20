@@ -146,7 +146,7 @@
 		.full-scrollable tbody th
 		{
 			background: #B0BEC5;
-			border-right: none;
+			border-right: 1px solid #263238;
 		}
 
 		.full-scrollable th,
@@ -180,6 +180,7 @@
 			width: 22px;
 			min-width: 22px;
 			max-width: 22px;
+			text-align: center;
 		}
 
 		.full-scrollable th:nth-child(2),
@@ -425,6 +426,12 @@
 		table tbody tr th.Hold:not(.hack):not(.hack) {
 				background: #FFC107;
 		}
+		table tbody tr:hover th:not(.hack):not(.hack) {
+				background-image: linear-gradient(
+					rgba(255, 255, 255, 0.25),
+					rgba(255, 255, 255, 0.25)
+				);
+		}
 
 		@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 		   .full-scrollable {
@@ -436,6 +443,49 @@
 					 width: 100%;
 				}
 		}
+
+		input[type=checkbox] {
+		    position: absolute;
+		    z-index: -1000;
+		    left: -1000px;
+		    overflow: hidden;
+		    clip: rect(0 0 0 0);
+		    height: 1px;
+		    width: 1px;
+		    margin: -1px;
+		    padding: 0;
+		    border: 0;
+		}
+
+		input[type=checkbox] + label {
+		    background-image: url('img/Check.png');
+		    -webkit-touch-callout: none;
+		    -webkit-user-select: none;
+		    -khtml-user-select: none;
+		    -moz-user-select: none;
+		    -ms-user-select: none;
+		    user-select: none;
+		    margin-bottom: 1px;
+		    padding-left: 16px;
+		    height: 16px;
+		    display: inline-block;
+		    line-height: 16px;
+		    background-repeat: no-repeat;
+		    background-position: 0 0;
+		    font-size: 16px;
+		    vertical-align: middle;
+		    cursor: pointer;
+
+		}
+
+		input[type=checkbox]:checked + label {
+		    background-position: 0 -16px;
+		}
+
+		input[type=checkbox]:indeterminate + label {
+		    background-position: 0 -32px;
+		}
+
 			</style>
 </head>
 <body>
@@ -471,7 +521,7 @@
 		<table class="full-scrollable sortable">
 			<thead>
 				<tr>
-					<th><input type="checkbox" /></th>
+					<th><input type="checkbox" id="master_checkbox" /><label for="master_checkbox"></label></th>
 					<th>Status</th>
 					<th>Reference</th>
 					<th>Time</th>
@@ -486,8 +536,13 @@
 			<tbody>
 				@foreach ($orders as $order)
 					<tr>
-						<th class="{{ $order->status or 'Generated'}}"><input type="checkbox"/></th>
-						<td>{{ $order->status or 'Generated'}}</td>
+						<th class="{{ $order->status or 'Generated'}}">
+							<input type="checkbox" id="{{ $order->reference }}" />
+							<label for="{{ $order->reference }}"></label>
+						</th>
+						<td>
+							{{ $order->status or 'Generated'}}
+						</td>
 						<td>
 							<strong>{{ $order->reference }}</strong><br/>
 							{{ $order->order_id }}<br/>
