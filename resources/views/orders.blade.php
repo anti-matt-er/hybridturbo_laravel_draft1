@@ -279,6 +279,7 @@
 			background: #B0BEC5;
 			color: #37474F;
 			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+			text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.33);
 		}
 		header input[type="submit"], header button, header .dropdown {
 			position: relative;
