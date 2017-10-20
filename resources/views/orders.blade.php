@@ -58,7 +58,7 @@
 		footer {
 			background: #263238;
 			color: #fff;
-			box-shadow: 0px -5px 20px 0px rgba(0,0,0,0.75);
+			box-shadow: 0px -5px 20px 0px rgba(0,0,0,0.5);
 			height: 2em;
 			padding: 0.5em;
 			z-index: 5;
@@ -95,7 +95,7 @@
 			flex: 0 0 auto;
 			position: relative;
 		    overflow-y: scroll;
-		    box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.75);
+		    box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.5);
 		    z-index: 5;
 		}
 
@@ -355,6 +355,7 @@
 		    float: none;
 		    display: block;
 		    position: relative;
+		    margin-top: -1px;
 		}
 		details div {
 		  display: none;

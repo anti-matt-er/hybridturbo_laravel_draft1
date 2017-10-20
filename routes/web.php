@@ -12,6 +12,6 @@
 */
 
 Route::get('/orders', function () {
-	$orders = App\Models\Order::all();
+	$orders = App\Models\Order::whereNull('status')->orWhereNotIn('status', ['Dispatched', 'Void'])->get();
     return view('orders', ['orders' => $orders]);
 });
