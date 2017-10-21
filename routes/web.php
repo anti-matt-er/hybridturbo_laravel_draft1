@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Input;
 
 Route::get('/orders', function () {
 	$orders = App\Models\Order::whereNull('status')->orWhereNotIn('status', ['Dispatched', 'Void'])->get();
-    return view('orders', ['orders' => $orders]);
+    return view('orders', [
+    	'orders' => $orders,
+    	'title' => 'Orders'
+    ]);
 });
 
 Route::get('/orders/search', function () {
@@ -49,53 +52,57 @@ Route::get('/orders/search', function () {
 				$orders = $orders->merge($customer->orders);
 			}
 		}
-	}
-	// Now we have the results, weigh them
-	$terms = explode(' ', $q);
-	$idealCount = count($terms);
-	$idealFound = false;
-	$pointsTable = [];
-	foreach ($orders as $originalKey => $order) {
-		$points = 0;
-		$flatOrder = array_dot($order->load(['customer.address', 'address'])->toArray());
-		$termsFound = [];
-		foreach ($terms as $term) {
-			$termsFound[$term] = 0;
-			foreach ($flatOrder as $field) {
-				if (stripos($field, $term) !== false) {
-					$points++;
-					$termsFound[$term] = 1;
+
+		// Now we have the results, weigh them
+		$terms = explode(' ', $q);
+		$idealCount = count($terms);
+		$idealFound = false;
+		$pointsTable = [];
+		foreach ($orders as $originalKey => $order) {
+			$points = 0;
+			$flatOrder = array_dot($order->load(['customer.address', 'address'])->toArray());
+			$termsFound = [];
+			foreach ($terms as $term) {
+				$termsFound[$term] = 0;
+				foreach ($flatOrder as $field) {
+					if (stripos($field, $term) !== false) {
+						$points++;
+						$termsFound[$term] = 1;
+					}
 				}
 			}
-		}
-		$termsFound = array_sum($termsFound);
-		if ($termsFound === $idealCount) {
-			$idealFound = true;
-		}
-		$pointsTable[] = [
-			'termsFound' => $termsFound,
-			'points' => $points,
-			'originalKey' => $originalKey,
-			'order' => $order
-		];
-	}
-	// Sort on their points
-	usort($pointsTable, function($a, $b) {
-		if ($a['termsFound'] == $b['termsFound']) {
-			if ($a['points'] == $b['points']) {
-				return $a['originalKey'] <=> $b['originalKey'];
+			$termsFound = array_sum($termsFound);
+			if ($termsFound === $idealCount) {
+				$idealFound = true;
 			}
-			return $a['points'] <=> $b['points'];
+			$pointsTable[] = [
+				'termsFound' => $termsFound,
+				'points' => $points,
+				'originalKey' => $originalKey,
+				'order' => $order
+			];
 		}
-		return $a['termsFound'] <=> $b['termsFound'];
-	});
-	// Flatten into new collection
-	$orders = collect();
-	foreach ($pointsTable as $pointsOrder) {
-		if ($idealFound == false || ($idealFound == true && $pointsOrder['termsFound'] == $idealCount)) {
-			$orders->push($pointsOrder['order']);
+		// Sort on their points
+		usort($pointsTable, function($a, $b) {
+			if ($a['termsFound'] == $b['termsFound']) {
+				if ($a['points'] == $b['points']) {
+					return $a['originalKey'] <=> $b['originalKey'];
+				}
+				return $a['points'] <=> $b['points'];
+			}
+			return $a['termsFound'] <=> $b['termsFound'];
+		});
+		// Flatten into new collection
+		$orders = collect();
+		foreach ($pointsTable as $pointsOrder) {
+			if ($idealFound == false || ($idealFound == true && $pointsOrder['termsFound'] == $idealCount)) {
+				$orders->push($pointsOrder['order']);
+			}
 		}
 	}
 
-	return view('orders', ['orders' => $orders]);
+	return view('orders', [
+		'orders' => $orders,
+		'title' => $q
+	]);
 });
