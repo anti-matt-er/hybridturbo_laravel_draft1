@@ -42,6 +42,21 @@ class Customer extends Eloquent
 		'address_id'
 	];
 
+	public $iteratable = true;
+
+	public $viewable = [];
+
+	public $editable = [
+		'first_name',
+		'last_name',
+		'email',
+		'telephone'
+	];
+
+	public $relationships = [
+		'address'
+	];
+
 	public function address()
 	{
 		return $this->belongsTo(\App\Models\Address::class);

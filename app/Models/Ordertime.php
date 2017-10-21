@@ -54,6 +54,21 @@ class Ordertime extends Eloquent
 		'time_expected'
 	];
 
+	public $iteratable = true;
+
+	public $viewable = [
+		'time_placed',
+		'time_retrieved',
+		'time_dispatched',
+		'time_last_status',
+		'time_delivered',
+		'time_expected'
+	];
+
+	public $editable = [];
+
+	public $relationships = [];
+
 	public function order()
 	{
 		return $this->belongsTo(\App\Models\Order::class, 'order_reference');

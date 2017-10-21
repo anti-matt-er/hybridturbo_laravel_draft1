@@ -35,6 +35,17 @@ class Orderproperty extends Eloquent
 		'value'
 	];
 
+	public $iteratable = true;
+
+	public $viewable = [];
+
+	public $editable = [
+		'name',
+		'value'
+	];
+
+	public $relationships = [];
+
 	public function order()
 	{
 		return $this->belongsTo(\App\Models\Order::class, 'order_reference');

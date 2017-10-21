@@ -21,6 +21,14 @@ Route::get('/orders', function () {
     ]);
 });
 
+Route::get('/order/{reference}', function ($reference) {
+	$order = App\Models\Order::find($reference);
+	return view('order', [
+		'order' => $order
+	]);
+});
+
+
 Route::get('/orders/search', function() {
 	//dd('/orders/search/'.Input::get('q'));
 	return redirect('/orders/search/q/'.Input::get('q'));

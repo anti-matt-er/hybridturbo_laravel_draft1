@@ -70,6 +70,35 @@ class Order extends Eloquent
 		'address_id'
 	];
 
+	public $iteratable = true;
+
+	public $viewable = [
+		'reference',
+		'order_id',
+		'source',
+		'account'
+	];
+
+	public $editable = [
+		'total_price',
+		'service',
+		'status',
+		'parcel_count',
+		'weight',
+		'length',
+		'order_message',
+		'courier_code'
+	];
+
+	public $relationships = [
+		'customer',
+		'address',
+		'products',
+		'ordertime',
+		'orderproperty',
+		'trackings'
+	];
+
 	public function courier()
 	{
 		return $this->belongsTo(\App\Models\Courier::class, 'courier_code');

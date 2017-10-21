@@ -34,6 +34,16 @@ class Tracking extends Eloquent
 		'order_reference'
 	];
 
+	public $iteratable = true;
+
+	public $viewable = [
+		'tracking_number'
+	];
+
+	public $editable = [];
+
+	public $relationships = [];
+	
 	public function order()
 	{
 		return $this->belongsTo(\App\Models\Order::class, 'order_reference');
