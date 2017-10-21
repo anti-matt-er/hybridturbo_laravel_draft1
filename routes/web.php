@@ -21,8 +21,13 @@ Route::get('/orders', function () {
     ]);
 });
 
-Route::get('/orders/search', function () {
-	$q = trim(Input::get ( 'q' ));
+Route::get('/orders/search', function() {
+	//dd('/orders/search/'.Input::get('q'));
+	return redirect('/orders/search/q/'.Input::get('q'));
+});
+
+Route::get('/orders/search/q/{q?}', function ($q = '') {
+	$q = trim($q);
 
 	// We need to search each collection, but also allow for quick order_id and reference selects
 
@@ -106,6 +111,7 @@ Route::get('/orders/search', function () {
 
 	return view('orders', [
 		'orders' => $orders,
-		'title' => $q
+		'title' => $q,
+		'query' => $q
 	]);
 });
