@@ -26,6 +26,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Customer extends Eloquent
 {
+	use \Laravel\Scout\Searchable;
+	
 	public $timestamps = false;
 
 	protected $casts = [

@@ -30,6 +30,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Address extends Eloquent
 {
+	use \Laravel\Scout\Searchable;
+	
 	public $timestamps = false;
 
 	protected $fillable = [

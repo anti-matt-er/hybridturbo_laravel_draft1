@@ -169,6 +169,7 @@ return [
          */
 
         Reliese\Coders\CodersServiceProvider::class,
+        Yab\MySQLScout\Providers\MySQLScoutServiceProvider::class,
 
         /*
          * Application Service Providers...

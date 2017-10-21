@@ -28,6 +28,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Product extends Eloquent
 {
+	use \Laravel\Scout\Searchable;
+
 	protected $primaryKey = 'order_item_id';
 	public $timestamps = false;
 

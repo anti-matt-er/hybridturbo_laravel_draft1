@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>title</title>
 	<link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
-	<script src="js/sorttable.js"></script>
+	<script src="/js/sorttable.js"></script>
 	<style>
 		html {
 		  -webkit-box-sizing: border-box;
@@ -459,7 +459,7 @@
 		}
 
 		input[type=checkbox] + label {
-		    background-image: url('img/Check.png');
+		    background-image: url('/img/Check.png');
 		    -webkit-touch-callout: none;
 		    -webkit-user-select: none;
 		    -khtml-user-select: none;
@@ -487,11 +487,15 @@
 		    background-position: 0 -32px;
 		}
 
+		form {
+			display: inline;
+		}
+
 			</style>
 </head>
 <body>
 	<header>
-		<input type="search" placeholder="Search..."><input type="submit" value="&#9658;"><!--
+		<form action="/orders/search" method="GET" role="search"><input type="search" placeholder="Search..." name="q"><input type="submit" value="&#9658;"></form><!--
 		--><nav class="dropdown">
 			<ul>
 				<li>

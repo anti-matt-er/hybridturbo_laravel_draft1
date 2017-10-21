@@ -29,6 +29,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Inventory extends Eloquent
 {
+	use \Laravel\Scout\Searchable;
+	
 	protected $table = 'inventory';
 	protected $primaryKey = 'sku';
 	public $incrementing = false;

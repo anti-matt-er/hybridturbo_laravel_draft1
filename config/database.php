@@ -115,6 +115,11 @@ return [
             'database' => 0,
         ],
 
+        'driver' => 'redis',
+        'connection' => 'default',
+        'queue' => '{default}',
+        'retry_after' => 90,
+
     ],
 
 ];

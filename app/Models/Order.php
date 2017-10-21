@@ -40,6 +40,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Order extends Eloquent
 {
+	use \Laravel\Scout\Searchable;
+
 	protected $primaryKey = 'reference';
 	public $timestamps = false;
 
