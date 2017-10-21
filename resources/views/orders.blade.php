@@ -32,6 +32,7 @@
 	<button class="process right">Process</button>
 </header>
 <main>
+	@if ($orders->isNotEmpty())
 	<table class="full-scrollable sortable">
 		<thead>
 			<tr>
@@ -123,6 +124,9 @@
 			@endforeach
 		</tbody>
 	</table>
+	@else
+		@include('notice', ['message' => 'Sorry, no results found!'])
+	@endif
 </main>
 <footer>
 	<span>Showing {{ count($orders) }} orders</span>
