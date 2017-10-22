@@ -17,9 +17,9 @@
 	@endforeach
 @elseif ($fillable !== null)
 	@foreach ($fillable as $field)
-	<div class="row">
-		<span class="field">{{ $field }}</span>
-		<input class="value" type="text" value="{{ $object->$field or '' }}" />
+	<div class="row split">
+		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
+		<textarea class="value">{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 @endif

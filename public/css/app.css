@@ -96,15 +96,7 @@ header .dropdown {
   width: 100%;
   height: 100%;
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  overflow: auto;
 }
 
 html {
@@ -368,6 +360,17 @@ input[type="search"]:not(:focus) {
   opacity: 0;
 }
 
+.dropdown a,
+.dropdown a:hover,
+.dropdown a:visited {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  border: inherit;
+  display: inline-block;
+  width: 100%;
+}
+
 .dropdown ul {
   padding: 0;
   margin: 0;
@@ -580,10 +583,133 @@ table tbody tr:hover td:not(.hack):not(.hack) {
   color: #0277bd;
 }
 
+.notice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .notice span {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-size: 72px;
   color: #b0bec5;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.33), -1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.order {
+  font-size: 14px;
+  background: #F5F5F5;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), 0 6px 6px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), 0 6px 6px rgba(0, 0, 0, 0.5);
+  width: 480px;
+  margin: auto;
+}
+
+.order textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  height: 2em;
+  border: none;
+  background: #f4f5fb;
+  font-size: inherit;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.order-header {
+  background: #b0bec5;
+  color: #fff;
+  font-size: 1.8em;
+  padding: 0.6em;
+  text-align: center;
+}
+
+.row {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.row.split {
+  width: 50%;
+  float: left;
+}
+
+.row.split:last-child:nth-child(odd) {
+  float: none;
+  clear: both;
+  width: 100%;
+}
+
+.row.split:last-child:nth-child(odd) .value {
+  border-right: none;
+}
+
+.row.split:nth-child(odd) .value {
+  border-right: 1px solid #222;
+}
+
+.row:not(.split) {
+  clear: both;
+}
+
+.field {
+  background: #546e7a;
+  color: #fff;
+  text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.33), 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.viewable {
+  color: #b0bec5;
+}
+
+.field,
+.value {
+  padding: 4px 8px;
+}
+
+span.value {
+  display: block;
+}
+
+div.value {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  overflow: hidden;
+}
+
+.order > .row > details > div.value {
+  background: none;
+}
+
+.Printed {
+  background: #f44336;
+}
+
+.Scanned {
+  background: #4caf50;
+}
+
+.Dispatched {
+  background: #00bcd4;
+}
+
+.Void {
+  background: #880e4f;
+}
+
+.Hold {
+  background: #ffc107;
 }
 

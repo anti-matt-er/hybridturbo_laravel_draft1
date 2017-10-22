@@ -41,7 +41,7 @@
 								<li>
 									Action
 									<ul>
-										<li>Foo</li>
+										<li><a href="/order/{{ $order->reference }}" target="_blank">View Order</a></li>
 										<li>Bar</li>
 										<li>Looooooooooong cat is long</li>
 									</ul>

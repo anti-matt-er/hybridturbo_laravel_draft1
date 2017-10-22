@@ -72,14 +72,12 @@
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	overflow: auto;
 }
 
 
 html {
-	box-sizing: border-box;
+    box-sizing: border-box;
 	@extend %htmlbody;
 }
 * {
@@ -327,6 +325,14 @@ button {
 	}
 }
 .dropdown {
+	a, a:hover, a:visited {
+		color: inherit;
+		text-decoration: inherit;
+		cursor: inherit;
+		border: inherit;
+		display: inline-block;
+		width: 100%;
+	}
 	ul {
 		padding: 0;
 		margin: 0;
@@ -515,6 +521,10 @@ table tbody tr {
 }
 .notice {
 	@extend %single-page;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	span {
 		font-family: 'Alegreya Sans SC', sans-serif;
 		font-size: 72px;
@@ -524,4 +534,93 @@ table tbody tr {
 }
 .single-page {
 	@extend %single-page;
+}
+.order {
+	font-size: 14px;
+	background: $color_bright_grey;
+	border-radius: 3px;
+	box-shadow: 0 10px 20px $color_25_black, 0 6px 6px $color_50_black;
+	width: 480px;
+	margin: auto;
+
+	textarea {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		min-width: 100%;
+		height: 2em;
+		border: none;
+		background: $color_soft_white;
+		font-size: inherit;
+		margin: 0;
+		box-sizing: border-box;
+	}
+}
+.order-header {
+	background: $color_light_grey;
+	color: $color-white;
+	font-size: 1.8em;
+	padding: 0.6em;
+	text-align: center;
+}
+.row {
+	width: 100%;
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+	&.split {
+		width: 50%;
+		float: left;
+		&:last-child:nth-child(odd) {
+			float: none;
+			clear: both;
+			width: 100%;
+			.value {
+				border-right: none;
+			}
+		}
+		&:nth-child(odd) .value {
+			border-right: 1px solid $color_ash;
+		}
+	}
+	&:not(.split) {
+		clear: both;
+	}
+}
+.field {
+	background: $color_grey;
+	color: $color_white;
+	text-shadow: -1px -1px 0 $color_33_white, 1px 1px 0 $color_50_black;
+}
+.viewable {
+	color: $color_light_grey;
+}
+.field,.value {
+	padding: 4px 8px;
+}
+span.value {
+	display: block;
+}
+div.value {
+	background: $color_20_black;
+	padding: 4px;
+	overflow: hidden;
+}
+.order > .row > details > div.value {
+    background: none;
+}
+.Printed {
+	background: $color_status_printed;
+}
+.Scanned {
+	background: $color_status_scanned;
+}
+.Dispatched {
+	background: $color_status_dispatched;
+}
+.Void {
+	background: $color_status_void;
+}
+.Hold {
+	background: $color_status_hold;
 }
