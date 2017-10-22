@@ -12,10 +12,11 @@
 	}
 @endphp
 @if ($collection)
-	@foreach ($object as $sub_object)
-		@include('object_viewer', ['object' => $sub_object])
+	@foreach ($object as $key => $sub_object)
+		<div class="collection" v-bind:class="{'removed' : removed }">@include('object_viewer', ['object' => $sub_object, 'is_collection' => true])</div>
 	@endforeach
 @elseif ($fillable !== null)
+	@include('object_header')
 	@foreach ($fillable as $field)
 	<div class="row split">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>

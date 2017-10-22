@@ -1,4 +1,5 @@
 @if (isset($object->iteratable) && $object->iteratable)
+	@include('object_header')
 	@foreach ($object->viewable as $field)
 	<div class="row split">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
@@ -15,7 +16,12 @@
 	<div class="row">
 		<details>
 			<summary class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</summary>
-			<div class="value">@include('object_viewer', ['object' => $object->$field])</div>
+			<div class="value">
+				@include('object_viewer', ['object' => $object->$field, 'first' => false, 'is_collection' => class_basename($object->$field) == 'Collection'])
+				@if (class_basename($object->$field) == 'Collection')
+					<button>Add new {{ str_singular($field) }}</button>
+				@endif
+			</div>
 		</details>
 	</div>
 	@endforeach

@@ -406,7 +406,7 @@ a {
 	}
 }
 details[open] {
-	div {
+	> div {
 		display: block;
 	}
 	> summary::before {
@@ -489,7 +489,7 @@ input[type=checkbox] {
 form {
 	display: inline;
 }
-details div {
+details > div {
 	display: none;
 }
 table tbody tr {
@@ -542,7 +542,6 @@ table tbody tr {
 	box-shadow: 0 10px 20px $color_25_black, 0 6px 6px $color_50_black;
 	width: 480px;
 	margin: auto;
-
 	textarea {
 		display: block;
 		width: 100%;
@@ -555,13 +554,21 @@ table tbody tr {
 		margin: 0;
 		box-sizing: border-box;
 	}
+	button {
+		width: 100%;
+		box-sizing: border-box;
+	}
 }
-.order-header {
+.header {
 	background: $color_light_grey;
 	color: $color-white;
-	font-size: 1.8em;
+	font-size: 1.2em;
 	padding: 0.6em;
 	text-align: center;
+	text-shadow: -1px -1px 0 $color_33_white, 1px 1px 0 $color_50_black;
+}
+.order > .header {
+	font-size: 1.8em;
 }
 .row {
 	width: 100%;
@@ -608,6 +615,48 @@ div.value {
 }
 .order > .row > details > div.value {
     background: none;
+}
+.delete {
+	background: $color_bad_back;
+	color: $color_bad_text;
+	border-radius: 100%;
+    width: 14px;
+    height: 14px;
+    margin-top: 2px;
+    display: inline-block;
+    line-height: 13px;
+    text-shadow: none;
+    float: right;
+    border: 1px solid $color_ash;
+	&:not(.hack):not(.hack) {
+		@extend %cta-overlay;
+	}
+	&:link, &:visited {
+		color: $color_bad_text;
+	}
+	&:hover {
+		background: $color_bad_hover;
+		color: $color_bad_text;
+		border: 1px solid $color_ash;
+		&:not(.hack):not(.hack) {
+			@extend %cta-overlay;
+		}
+	}
+}
+.removed-message {
+	display: none;
+}
+.removed {
+	margin-bottom: 4px;
+	.row {
+		display: none;
+	}
+	.default-message {
+		display: none;
+	}
+	.removed-message {
+		display: block;
+	}
 }
 .Printed {
 	background: $color_status_printed;

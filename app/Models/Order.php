@@ -95,7 +95,7 @@ class Order extends Eloquent
 		'address',
 		'products',
 		'ordertime',
-		'orderproperty',
+		'orderproperties',
 		'trackings'
 	];
 
@@ -114,9 +114,9 @@ class Order extends Eloquent
 		return $this->belongsTo(\App\Models\Address::class);
 	}
 
-	public function orderproperty()
+	public function orderproperties()
 	{
-		return $this->hasOne(\App\Models\Orderproperty::class, 'order_reference');
+		return $this->hasMany(\App\Models\Orderproperty::class, 'order_reference');
 	}
 
 	public function products()

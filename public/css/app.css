@@ -74,7 +74,9 @@ button:hover,
 input[type="submit"]:not(.hack),
 button:not(.hack),
 .dropdown ul li:not(.hack),
-.process:hover:not(.hack) {
+.process:hover:not(.hack),
+.delete:not(.hack),
+.delete:hover:not(.hack) {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.5)), color-stop(60%, transparent), color-stop(70%, rgba(0, 0, 0, 0.05)), to(transparent));
   background-image: linear-gradient(rgba(255, 255, 255, 0.5), transparent 60%, rgba(0, 0, 0, 0.05) 70%, transparent);
 }
@@ -449,7 +451,7 @@ a:hover {
   border-bottom: 2px dotted;
 }
 
-details[open] div {
+details[open] > div {
   display: block;
 }
 
@@ -550,7 +552,7 @@ form {
   display: inline;
 }
 
-details div {
+details > div {
   display: none;
 }
 
@@ -626,12 +628,23 @@ table tbody tr:hover td:not(.hack):not(.hack) {
           box-sizing: border-box;
 }
 
-.order-header {
+.order button {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.header {
   background: #b0bec5;
   color: #fff;
-  font-size: 1.8em;
+  font-size: 1.2em;
   padding: 0.6em;
   text-align: center;
+  text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.33), 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.order > .header {
+  font-size: 1.8em;
 }
 
 .row {
@@ -691,6 +704,51 @@ div.value {
 
 .order > .row > details > div.value {
   background: none;
+}
+
+.delete {
+  background: #B71C1C;
+  color: #FFEBEE;
+  border-radius: 100%;
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  display: inline-block;
+  line-height: 13px;
+  text-shadow: none;
+  float: right;
+  border: 1px solid #222;
+}
+
+.delete:link,
+.delete:visited {
+  color: #FFEBEE;
+}
+
+.delete:hover {
+  background: #D50000;
+  color: #FFEBEE;
+  border: 1px solid #222;
+}
+
+.removed-message {
+  display: none;
+}
+
+.removed {
+  margin-bottom: 4px;
+}
+
+.removed .row {
+  display: none;
+}
+
+.removed .default-message {
+  display: none;
+}
+
+.removed .removed-message {
+  display: block;
 }
 
 .Printed {
