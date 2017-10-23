@@ -19,7 +19,21 @@
 			<div class="value">
 				@include('object_viewer', ['object' => $object->$field, 'first' => false, 'is_collection' => class_basename($object->$field) == 'Collection'])
 				@if (class_basename($object->$field) == 'Collection')
-					<button>Add new {{ str_singular($field) }}</button>
+					<div class="new-collection" data-model="{{ str_singular($field) }}">
+						<!-- ko foreach: items -->
+						<div>
+							<!-- ko foreach: {data: rows, as: 'row'} -->
+							<div class="row split">
+								<div class="field" data-bind="text: row"></div>
+								<textarea class="value"></textarea>
+							</div>
+							<a href="#" data-bind="click: $parent.removeItem">Remove</a>
+							<!-- /ko -->
+						</div>
+						<!-- /ko -->
+						<button data-bind="click: addItem">Add new {{ str_singular($field) }}</button>
+						<button data-bind="click: debug">Debug</button>
+					</div>
 				@endif
 			</div>
 		</details>

@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+Route::get('/fillable/{model}', function ($model) {
+	$model = "App\\Models\\" . ucfirst($model);
+	$model = new $model;
+	return $model->getFillable();
 });
