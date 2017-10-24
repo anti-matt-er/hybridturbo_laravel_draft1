@@ -556,6 +556,7 @@ table tbody tr {
 		max-width: 100%;
 		min-width: 100%;
 		height: 2em;
+		max-height: 2em;
 		border: none;
 		background: $color_soft_white;
 		font-size: inherit;
@@ -598,9 +599,11 @@ table tbody tr {
 					max-width: 200%;
 					min-width: 200%;
 					height: 5.8em;
-					box-shadow: inset 0.2em 0.2em .5em $color_20_black,
-								0 0.5em 1em $color_20_black;
-					border: none;
+					max-height: 9999px;
+					background: $color_white;
+					box-shadow: inset 0 0.2em 0.3em 1px $color_25_black,
+								0 0.5em 1em $color_25_black;
+					border: 2px solid $color_grey;
 					outline: none;
 					z-index: 10;
 				}
@@ -621,7 +624,8 @@ table tbody tr {
 					max-width: 100%;
 					min-width: 100%;
 					height: 2em;
-					box-shadow: inset 0.2em 0.2em .5em $color_20_black;
+					border: 2px solid $color_grey;
+					box-shadow: inset 0 0.2em 0.3em 1px $color_25_black;
 				}
 			}
 		}
