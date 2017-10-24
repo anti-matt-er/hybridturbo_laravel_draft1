@@ -8,9 +8,10 @@
 </header>
 <main>
 	<div class="single-page">
-		<div class="order">
+		<form class="order">
 			@include('object_viewer', ['object' => $order, 'first' => true])
-		</div>
+			<button class="good">Save</button>
+		</form>
 	</div>
 </main>
 @endsection

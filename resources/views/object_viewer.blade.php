@@ -1,3 +1,11 @@
+@php
+	$keyAccessor = '';
+	if (isset($parentField)) {
+		$keyAccessor = $parentField.'.';
+	} else {
+		$parentField = '';
+	}
+@endphp
 @if (isset($object->iteratable) && $object->iteratable)
 	@include('object_header')
 	@foreach ($object->viewable as $field)
@@ -9,7 +17,7 @@
 	@foreach ($object->editable as $field)
 	<div class="row split editable">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
-		<textarea class="value">{{ $object->$field or '' }}</textarea>
+		<textarea class="value" name="{{ $keyAccessor }}{{ $field }}">{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 	@foreach ($object->relationships as $field)
@@ -17,7 +25,7 @@
 		<details>
 			<summary class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</summary>
 			<div class="value">
-				@include('object_viewer', ['object' => $object->$field, 'first' => false, 'is_collection' => class_basename($object->$field) == 'Collection'])
+				@include('object_viewer', ['object' => $object->$field, 'first' => false, 'parentField' => $keyAccessor.$field, 'is_collection' => class_basename($object->$field) == 'Collection'])
 				@if (class_basename($object->$field) == 'Collection')
 					<div class="new-collection" data-model="{{ str_singular($field) }}">
 						<!-- ko foreach: $data.items -->
@@ -30,7 +38,7 @@
 							<!-- ko foreach: {data: rows, as: 'row'} -->
 							<div class="row split">
 								<div class="field" data-bind="text: row.underscoreToWords()"></div>
-								<textarea class="value"></textarea>
+								<textarea class="value" data-bind="attr: {name: '{{ $keyAccessor }}{{ $field }}.'+($parentContext.$index()+{{ count($object->$field) }})+'.'+row}"></textarea>
 							</div>
 							<!-- /ko -->
 						</div>
@@ -43,5 +51,5 @@
 	</div>
 	@endforeach
 @else
-	@include('object_fillable_viewer', ['object' => $object])
+	@include('object_fillable_viewer', ['object' => $object, 'parentField' => $parentField])
 @endif

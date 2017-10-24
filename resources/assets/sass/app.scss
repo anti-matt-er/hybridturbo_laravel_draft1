@@ -441,12 +441,6 @@ summary::before {
 .right {
 	float: right;
 }
-.process {
-	@extend %good;
-	&:hover {
-		@extend %good-hover;
-	}
-}
 .headerText {
 	font-size: 1.7em;
 	line-height: 150%;
@@ -544,6 +538,7 @@ table tbody tr {
 	@extend %single-page;
 }
 .order {
+	display: block;
 	font-size: 14px;
 	background: $color_bright_grey;
 	border-radius: 3px;
@@ -708,6 +703,19 @@ div.value {
 }
 .good:not(.hack):not(.hack) {
 	@extend %good;
+}
+button.good {
+	@extend %good;
+	&:hover {
+		@extend %good-hover;
+		@extend %cta-hover;
+	}
+	&:not(.hack):not(.hack) {
+		@extend %cta-overlay;
+	}
+}
+.order .good {
+	font-size: 2em;
 }
 .Printed {
 	background: $color_status_printed;

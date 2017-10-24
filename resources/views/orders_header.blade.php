@@ -23,4 +23,4 @@
 		</li>
 	</ul>
 </nav>
-<button class="process right">Process</button>
+<button class="good right">Process</button>

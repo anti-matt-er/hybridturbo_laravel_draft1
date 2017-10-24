@@ -1,4 +1,11 @@
 @php
+	$keyAccessor = '';
+	if (isset($parentField)) {
+		$keyAccessor = $parentField.'.';
+	} else {
+		$parentField = '';
+	}
+
 	$model = get_class($object);
 	$collection = false;
 	$fillable = null;
@@ -13,14 +20,14 @@
 @endphp
 @if ($collection)
 	@foreach ($object as $key => $sub_object)
-		<div class="collection" data-bind="css: {removed : !visible() }">@include('object_viewer', ['object' => $sub_object, 'is_collection' => true])</div>
+		<div class="collection" data-bind="css: {removed : !visible() }">@include('object_viewer', ['object' => $sub_object, 'is_collection' => true, 'parentField' => $field.'.'.$key,])</div>
 	@endforeach
 @elseif ($fillable !== null)
 	@include('object_header')
 	@foreach ($fillable as $field)
 	<div class="row split editable">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
-		<textarea class="value">{{ $object->$field or '' }}</textarea>
+		<textarea class="value" name="{{ $keyAccessor }}{{ $field }}">{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 @endif
