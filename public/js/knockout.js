@@ -1,3 +1,16 @@
+String.prototype.ucwords = function() {
+	str = this.toLowerCase();
+	return str.replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g,
+	function(s){
+		return s.toUpperCase();
+	});
+};
+
+String.prototype.underscoreToWords = function() {
+	str = this.replace('_', ' ');
+	return str.ucwords();
+};
+
 function collectionItem() {
 	this.visible = ko.observable(true);
 	this.toggle = function() {
@@ -6,27 +19,24 @@ function collectionItem() {
 }
 
 function newItem(el) {
-	self = this;
-	self.items = ko.observableArray([{rows: ['cake']}]);
-	self.fillable = [];
-	model = el.getAttribute('data-model');
+	var self = this;
+	self.items = ko.observableArray([]);
+	self.editable = [];
+	self.model = el.getAttribute('data-model');
 	self.init = function() {
-		$.getJSON('/api/fillable/'+model, function(data) {
+		$.getJSON('/api/editable/'+self.model, function(data) {
 			data.forEach(function (datum) {
-				self.fillable.push(datum);
+				self.editable.push(datum);
 			});
 		});
 	};
 	self.addItem = function() {
 		self.items.push({
-			rows: self.fillable
+			rows: self.editable
 		});
 	};
 	self.removeItem = function() {
 		self.items.remove(this);
-	};
-	self.debug = function() {
-		console.log(self.items());
 	};
 }
 
@@ -35,7 +45,6 @@ document.querySelectorAll('.collection').forEach(function (el) {
 });
 
 document.querySelectorAll('.new-collection').forEach(function (el) {
-	elItem = new newItem(el);
-	ko.applyBindings(elItem, el);
+	ko.applyBindings(elItem = new newItem(el), el);
 	elItem.init();
 });

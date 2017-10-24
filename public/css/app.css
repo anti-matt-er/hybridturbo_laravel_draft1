@@ -64,6 +64,12 @@ button,
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.33);
 }
 
+input.good[type="submit"],
+button.good,
+.dropdown ul li.good {
+  color: #004d40;
+}
+
 input[type="submit"]:hover,
 button:hover,
 .dropdown ul li:hover {
@@ -71,10 +77,10 @@ button:hover,
   color: #0277bd;
 }
 
+.process:not(.hack):hover,
 input[type="submit"]:not(.hack),
 button:not(.hack),
 .dropdown ul li:not(.hack),
-.process:hover:not(.hack),
 .delete:not(.hack),
 .delete:hover:not(.hack) {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.5)), color-stop(60%, transparent), color-stop(70%, rgba(0, 0, 0, 0.05)), to(transparent));
@@ -99,6 +105,15 @@ header .dropdown {
   height: 100%;
   position: absolute;
   overflow: auto;
+}
+
+.process,
+.good:not(.hack) {
+  background: #4caf50;
+}
+
+.process:hover {
+  background: #00e676;
 }
 
 html {
@@ -482,15 +497,6 @@ summary::before {
   float: right;
 }
 
-.process {
-  background: #4caf50;
-  color: #004d40;
-}
-
-.process:hover {
-  background: #00e676;
-}
-
 .headerText {
   font-size: 1.7em;
   line-height: 150%;
@@ -659,18 +665,59 @@ table tbody tr:hover td:not(.hack):not(.hack) {
   float: left;
 }
 
+.row.split.editable {
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.row.split.editable textarea {
+  position: absolute;
+  resize: none;
+}
+
+.row.split.editable textarea:focus {
+  resize: vertical;
+  width: 200%;
+  max-width: 200%;
+  min-width: 200%;
+  height: 5.8em;
+  -webkit-box-shadow: inset 0.2em 0.2em 0.5em rgba(0, 0, 0, 0.2), 0 0.5em 1em rgba(0, 0, 0, 0.2);
+          box-shadow: inset 0.2em 0.2em 0.5em rgba(0, 0, 0, 0.2), 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+  z-index: 10;
+}
+
 .row.split:last-child:nth-child(odd) {
   float: none;
   clear: both;
   width: 100%;
+  margin-bottom: 0;
 }
 
 .row.split:last-child:nth-child(odd) .value {
   border-right: none;
 }
 
+.row.split:last-child:nth-child(odd) textarea {
+  position: static;
+}
+
+.row.split:last-child:nth-child(odd) textarea:focus {
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  height: 2em;
+  -webkit-box-shadow: inset 0.2em 0.2em 0.5em rgba(0, 0, 0, 0.2);
+          box-shadow: inset 0.2em 0.2em 0.5em rgba(0, 0, 0, 0.2);
+}
+
 .row.split:nth-child(odd) .value {
   border-right: 1px solid #222;
+}
+
+.row.split:nth-child(even) textarea:focus {
+  left: -100%;
 }
 
 .row:not(.split) {

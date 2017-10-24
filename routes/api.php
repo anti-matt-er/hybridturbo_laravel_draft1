@@ -17,8 +17,11 @@ use Illuminate\Http\Request;
     return $request->user();
 });*/
 
-Route::get('/fillable/{model}', function ($model) {
+Route::get('/editable/{model}', function ($model) {
 	$model = "App\\Models\\" . ucfirst($model);
 	$model = new $model;
+	if (isset($model->editable) && !empty($model->editable)) {
+		return $model->editable;
+	}
 	return $model->getFillable();
 });

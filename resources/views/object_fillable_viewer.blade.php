@@ -18,7 +18,7 @@
 @elseif ($fillable !== null)
 	@include('object_header')
 	@foreach ($fillable as $field)
-	<div class="row split">
+	<div class="row split editable">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
 		<textarea class="value">{{ $object->$field or '' }}</textarea>
 	</div>

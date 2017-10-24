@@ -51,6 +51,9 @@
 	color: $color_dark_grey;
 	box-shadow: inset 0 0 0 1px $color_20_black;
 	text-shadow: 1px 1px 0 $color_33_white;
+	&.good {
+		color: $color_good_text;
+	}
 }
 %cta-hover {
 	background: $color_steel;
@@ -73,6 +76,15 @@
 	height: 100%;
 	position: absolute;
 	overflow: auto;
+}
+%good {
+	background: $color_good_back;
+}
+%good-hover {
+	background: $color_good_hover;
+	&:not(.hack):not(.hack) {
+		@extend %cta-overlay;
+	}
 }
 
 
@@ -430,13 +442,9 @@ summary::before {
 	float: right;
 }
 .process {
-	background: $color_good_back;
-	color: $color_good_text;
+	@extend %good;
 	&:hover {
-		background: $color_good_hover;
-		&:not(.hack):not(.hack) {
-			@extend %cta-overlay;
-		}
+		@extend %good-hover;
 	}
 }
 .headerText {
@@ -578,16 +586,52 @@ table tbody tr {
 	&.split {
 		width: 50%;
 		float: left;
+		&.editable {
+			margin-bottom: 2em;
+			position: relative;
+			textarea {
+				position: absolute;
+				resize: none;
+				&:focus {
+					resize: vertical;
+					width: 200%;
+					max-width: 200%;
+					min-width: 200%;
+					height: 5.8em;
+					box-shadow: inset 0.2em 0.2em .5em $color_20_black,
+								0 0.5em 1em $color_20_black;
+					border: none;
+					outline: none;
+					z-index: 10;
+				}
+			}
+		}
 		&:last-child:nth-child(odd) {
 			float: none;
 			clear: both;
 			width: 100%;
+			margin-bottom: 0;
 			.value {
 				border-right: none;
+			}
+			textarea {
+				position: static;
+				&:focus {
+					width: 100%;
+					max-width: 100%;
+					min-width: 100%;
+					height: 2em;
+					box-shadow: inset 0.2em 0.2em .5em $color_20_black;
+				}
 			}
 		}
 		&:nth-child(odd) .value {
 			border-right: 1px solid $color_ash;
+		}
+		&:nth-child(even) {
+			textarea:focus {
+				left:-100%;
+			}
 		}
 	}
 	&:not(.split) {
@@ -657,6 +701,9 @@ div.value {
 	.removed-message {
 		display: block;
 	}
+}
+.good:not(.hack):not(.hack) {
+	@extend %good;
 }
 .Printed {
 	background: $color_status_printed;
