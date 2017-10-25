@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 Route::get('/orders', function () {
 	$orders = App\Models\Order::whereNull('status')->orWhereNotIn('status', ['Dispatched', 'Void'])->get();
@@ -28,6 +29,42 @@ Route::get('/order/{reference}', function ($reference) {
 	]);
 });
 
+function addRelationshipData($resource, $data) {
+	if (isset($resource->iteratable) && $resource->iteratable) {
+		foreach($resource->relationships as $relationship) {
+			$relationshipData = $resource->$relationship;
+			$data[$relationship] = addRelationshipData($relationshipData, $relationshipData->toArray());
+		}
+	}
+	return $data;
+}
+
+Route::put('/{model}/{key}', function ($model, $key, Request $request) {
+	$model = "App\\Models\\" . ucfirst($model);
+	$resource = new $model;
+	//dump(Schema::getColumnListing($resource->getTable()));
+	$resource = $resource->find($key);
+	$oldData = $resource->toArray();
+	$oldData = addRelationshipData($resource, $oldData);
+	$oldData = array_dot($oldData);
+	$newData = $request->data;
+	
+	$changedData = [];
+	foreach ($newData as $key => $value) {
+		if (!array_key_exists($key, $oldData) || $oldData[$key] != $value) {
+			$changedData[$key] = $value;
+		}
+	}
+	dump($changedData);
+	$expandedChangedData = [];
+	foreach ($changedData as $key => $value) {
+		array_set($expandedChangedData, $key, $value);
+	}
+	dump($expandedChangedData);
+	$resource->update($expandedChangedData);
+	// UPDATE DOESN'T WORK FOR RELATIONSHIPS
+	dump($resource->toArray());
+});
 
 Route::get('/orders/search', function() {
 	//dd('/orders/search/'.Input::get('q'));

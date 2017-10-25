@@ -17,7 +17,7 @@
 	@foreach ($object->editable as $field)
 	<div class="row split editable">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
-		<textarea class="value" name="{{ $keyAccessor }}{{ $field }}">{{ $object->$field or '' }}</textarea>
+		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]">{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 	@foreach ($object->relationships as $field)
@@ -38,7 +38,7 @@
 							<!-- ko foreach: {data: rows, as: 'row'} -->
 							<div class="row split">
 								<div class="field" data-bind="text: row.underscoreToWords()"></div>
-								<textarea class="value" data-bind="attr: {name: '{{ $keyAccessor }}{{ $field }}.'+($parentContext.$index()+{{ count($object->$field) }})+'.'+row}"></textarea>
+								<textarea class="value" data-bind="attr: {name: 'data[{{ $keyAccessor }}{{ $field }}.'+($parentContext.$index()+{{ count($object->$field) }})+'.'+row+']'}"></textarea>
 							</div>
 							<!-- /ko -->
 						</div>

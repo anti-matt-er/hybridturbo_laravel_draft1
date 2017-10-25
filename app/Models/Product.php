@@ -31,6 +31,7 @@ class Product extends Eloquent
 	use \Laravel\Scout\Searchable;
 
 	protected $primaryKey = 'order_item_id';
+	protected $hidden = ['pivot'];
 	public $timestamps = false;
 
 	protected $casts = [

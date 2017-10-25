@@ -8,9 +8,11 @@
 </header>
 <main>
 	<div class="single-page">
-		<form class="order">
+		<form action="/order/{{ $order->reference }}" method="POST" class="order">
+			<input type="hidden" name="_method" value="PUT">
+    		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			@include('object_viewer', ['object' => $order, 'first' => true])
-			<button class="good">Save</button>
+			<button class="good" type="submit">Save</button>
 		</form>
 	</div>
 </main>

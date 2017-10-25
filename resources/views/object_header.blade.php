@@ -8,8 +8,10 @@
 	<div class="removed-message">
 		Item removed <a href="#" class="right" data-bind="click: toggle">Undo</a>
 	</div>
-	<!-- ko ifnot: visible -->
-	<input type="hidden" name="{{ $keyAccessor }}_remove" value="true" />
-	<!-- /ko -->
+	@if (isset($is_collection) && $is_collection)
+		<!-- ko ifnot: visible -->
+		<input type="hidden" name="data[{{ $keyAccessor }}_remove]" value="true" />
+		<!-- /ko -->
+	@endif
 </div>
 <div class="nth-fixer"></div>

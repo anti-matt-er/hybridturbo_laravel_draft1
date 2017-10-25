@@ -27,7 +27,7 @@
 	@foreach ($fillable as $field)
 	<div class="row split editable">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
-		<textarea class="value" name="{{ $keyAccessor }}{{ $field }}">{{ $object->$field or '' }}</textarea>
+		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]">{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 @endif
