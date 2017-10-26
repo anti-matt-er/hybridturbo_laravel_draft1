@@ -23,7 +23,6 @@
 	width: 9%;
 	min-width: 104px;
 	max-width: 9%;
-	border-right: 1px solid $color_steel;
 	font-weight: normal;
 	cursor: default;
 }
@@ -44,34 +43,32 @@
 	max-width: 30%;
 }
 %cta {
-	border-radius: 0;
+	border-radius: 2px;
 	border: none;
 	padding: 0.2em 0.75em;
-	background: $color_light_grey;
-	color: $color_dark_grey;
-	box-shadow: inset 0 0 0 1px $color_20_black;
-	text-shadow: 1px 1px 0 $color_33_white;
-	&.good {
-		color: $color_good_text;
-	}
+	background: $color_neutral;
+	color: $color_silver;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	text-shadow: -1px -1px 0 $color_20_black,
+								1px  1px 0 $color_25_white;
 }
 %cta-hover {
-	background: $color_steel;
-	color: $color_highlight;
+	background: $color_neutral_hover;
+	color: $color_white;
 }
 %cta-overlay {
-	background-image: linear-gradient($color_50_white, transparent 60%, $color_05_black 70%, transparent );
+	background-image: linear-gradient($color_10_white, transparent 60%, $color_10_black 70%, transparent );
 }
 %header-cta {
-	position: relative;
+	border-radius: 0;
 	display: inline-block;
 	font-size: 1.7em;
-	top: -1px;
+	font-family: 'Alegreya Sans SC', sans-serif;
+	box-shadow: none;
 }
 %single-page {
-	border-top: 1px solid $color_grey;
+	border-top: 1px solid $color_soft_white;
 	padding: 2em;
-	background: $color_soft_white;
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -100,12 +97,16 @@ html {
 	&:after {
 		box-sizing: inherit;
 	}
+	&:focus, &:active {
+		outline: none;
+	}
 }
 body {
 	@extend %htmlbody;
 	font-family: 'Rubik', 'sans-serif';
 	font-size: 13px;
 	color: $color_dark_grey;
+	background: $color_bright_grey;
 	text-rendering: optimizeSpeed;
 	display: flex;
 	height: 100%;
@@ -114,9 +115,11 @@ body {
 header {
 	display: block;
 	flex: 0 0 auto;
-	background: $color_grey;
+	background: $color_header;
 	color: $color_silver;
-	height: 2.5em;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	position: relative;
+	z-index: 50;
 	* {
 		vertical-align: top;
 		transition: all 0.2s;
@@ -132,6 +135,7 @@ header {
 		ul {
 			height: 100%;
 			> li {
+				box-shadow: none;
 				height: 100%;
 				height: 100%;
 				line-height: 120%;
@@ -189,6 +193,13 @@ main {
 					position: relative;
 					z-index: 10;
 					border-bottom: 2px solid $color_soft_black;
+					.dropdown ul ul {
+						top: auto;
+						bottom: 100%;
+					}
+					.dropdown > ul > li:hover:after {
+							content: ' \25b2';
+					}
 					&:nth-child(4) {
 						z-index: 9;
 					}
@@ -202,7 +213,6 @@ main {
 		}
 		th {
 			background: $color_light_grey;
-			border-right: 1px solid $color_soft_black;
 		}
 	}
 	thead {
@@ -215,8 +225,6 @@ main {
 		th {
 			background: $color_soft_black;
 			color: $color_white;
-			border-bottom: 1px solid $color_ash;
-			border-right: 1px solid $color_grey;
 			height: 3em;
 		}
 	}
@@ -232,7 +240,7 @@ main {
 		}
 	}
 	td {
-		padding: 0.5em;
+		padding: 0.5em 0.1em;
 		vertical-align: top;
 		@extend %full-scrollable-cell;
 		&:first-child {
@@ -267,9 +275,8 @@ main {
 	}
 }
 input[type="search"] {
-	display: inline-block;
-	padding: 0;
 	font-size: 1.7em;
+	padding: 0;
 	border-radius: 0;
 	background: $color_silver;
 	background-image: linear-gradient(transparent, transparent 90%, $color_steel 90% );
@@ -414,7 +421,7 @@ a {
 	}
 	&:hover {
 		color: $color_hover;
-		border-bottom: 2px dotted;
+		border-bottom: 1px dotted;
 	}
 }
 details[open] {
@@ -472,6 +479,7 @@ input[type=checkbox] {
 		user-select: none;
 		margin-bottom: 1px;
 		padding-left: 16px;
+		margin-left: -1px;
 		height: 16px;
 		display: inline-block;
 		line-height: 16px;
@@ -514,11 +522,11 @@ table tbody tr {
 	}
 	&:hover {
 		th:not(.hack):not(.hack) {
-			background-image: linear-gradient($color_25_white, $color_25_white);
+			background-image: linear-gradient($color_20_black, transparent);
 		}
 		td:not(.hack):not(.hack) {
-			color: $color_highlight;
-		} 
+			color: $color_neutral;
+		}
 	}
 }
 .notice {
@@ -625,7 +633,7 @@ table tbody tr {
 			}
 		}
 		&:nth-child(odd) .value {
-			border-right: 1px solid $color_ash;
+			border-right: 2px solid $color_grey;
 		}
 		&:nth-child(even) {
 			textarea:focus {
@@ -666,11 +674,9 @@ div.value {
     width: 14px;
     height: 14px;
     margin-top: 2px;
-    display: inline-block;
     line-height: 13px;
     text-shadow: none;
     float: right;
-    border: 1px solid $color_ash;
 	&:not(.hack):not(.hack) {
 		@extend %cta-overlay;
 	}
@@ -680,7 +686,7 @@ div.value {
 	&:hover {
 		background: $color_bad_hover;
 		color: $color_bad_text;
-		border: 1px solid $color_ash;
+		border: none;
 		&:not(.hack):not(.hack) {
 			@extend %cta-overlay;
 		}
@@ -714,8 +720,8 @@ button.good {
 		@extend %cta-overlay;
 	}
 }
-.order .good {
-	font-size: 2em;
+.order button.good {
+	@extend %header-cta;
 }
 .Printed {
 	background: $color_status_printed;

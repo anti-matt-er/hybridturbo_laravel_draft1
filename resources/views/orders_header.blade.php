@@ -1,4 +1,4 @@
-<form action="/orders/search" method="GET" role="search"><input type="search" placeholder="Search..." name="q" value="{{ $query or '' }}"><input type="submit" value="&#9658;"></form><!--
+<form action="/orders/search" method="GET" role="search"><input type="search" placeholder="Search..." name="q" value="{{ $query or '' }}"><input type="submit" value="&#9658;" class="good"></form><!--
 --><nav class="dropdown">
 	<ul>
 		<li>
