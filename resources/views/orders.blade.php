@@ -31,11 +31,6 @@
 						<label for="{{ $order->reference }}"></label>
 					</th>
 					<td>
-						{{ $order->status or 'Generated'}}
-					</td>
-					<td>
-						<strong>{{ $order->reference }}</strong><br/>
-						{{ $order->order_id }}<br/>
 						<nav class="dropdown">
 							<ul>
 								<li>
@@ -47,7 +42,12 @@
 									</ul>
 								</li>
 							</ul>
-						</nav>
+						</nav><br/>
+						{{ $order->status or 'Generated'}}
+					</td>
+					<td>
+						<strong>{{ $order->reference }}</strong><br/>
+						{{ $order->order_id }}
 					</td>
 					<td sorttable_customkey="{{ $order->ordertime->time_placed->timestamp }}">
 						<details>
@@ -93,7 +93,7 @@
 								<hr/>
 							@endif
 						@endforeach
-						<p class="right"><strong>Total:</strong> &pound;{{ number_format($order->total_price, 2) }}</p>
+						<p class="total"><strong>Total:</strong> &pound;{{ number_format($order->total_price, 2) }}</p>
 					</td>
 				</tr>
 			@endforeach

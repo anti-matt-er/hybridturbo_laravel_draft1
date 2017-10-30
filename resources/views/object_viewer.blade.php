@@ -36,7 +36,7 @@
 							</div>
 							<div class="nth-fix"></div>
 							<!-- ko foreach: {data: rows, as: 'row'} -->
-							<div class="row split">
+							<div class="row split editable">
 								<div class="field" data-bind="text: row.underscoreToWords()"></div>
 								<textarea class="value" data-bind="attr: {name: 'data[{{ $keyAccessor }}{{ $field }}.'+($parentContext.$index()+{{ count($object->$field) }})+'.'+row+']'}"></textarea>
 							</div>
