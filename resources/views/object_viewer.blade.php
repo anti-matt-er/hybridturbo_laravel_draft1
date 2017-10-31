@@ -5,7 +5,18 @@
 	} else {
 		$parentField = '';
 	}
+	$m = get_class($object);
+	$m = new $m;
+	$m = (array) $m;
+	$primaryKey = spl_object_hash($object);
+	if (array_key_exists("\x00*\x00primaryKey", $m)) {
+		$primaryKey = $object->{$m["\x00*\x00primaryKey"]};
+	}
+	$jsAccessor = class_basename($object).'_'.$primaryKey;
 @endphp
+<script>
+	objectViewer.{{ $jsAccessor }} = {};
+</script>
 @if (isset($object->iteratable) && $object->iteratable)
 	@include('object_header')
 	@foreach ($object->viewable as $field)
@@ -15,9 +26,12 @@
 	</div>
 	@endforeach
 	@foreach ($object->editable as $field)
-	<div class="row split editable">
+	<script>
+		objectViewer.{{ $jsAccessor }}.{{ $field }} = {!! json_encode($object->$field) !!}
+	</script>
+	<div class="row split editable exists">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
-		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]">{{ $object->$field or '' }}</textarea>
+		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]" data-bind="textInput: {{ $jsAccessor }}.{{ $field }}">{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 	@foreach ($object->relationships as $field)
@@ -36,7 +50,7 @@
 							</div>
 							<div class="nth-fix"></div>
 							<!-- ko foreach: {data: rows, as: 'row'} -->
-							<div class="row split">
+							<div class="row split editable">
 								<div class="field" data-bind="text: row.underscoreToWords()"></div>
 								<textarea class="value" data-bind="attr: {name: 'data[{{ $keyAccessor }}{{ $field }}.'+($parentContext.$index()+{{ count($object->$field) }})+'.'+row+']'}"></textarea>
 							</div>

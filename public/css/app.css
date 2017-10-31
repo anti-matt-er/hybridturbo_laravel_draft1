@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Rubik:400,700);@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300);html,
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400);html,
 body {
   width: 100%;
   height: 100%;
@@ -56,22 +56,20 @@ button,
   border-radius: 2px;
   border: none;
   padding: 0.2em 0.75em;
-  background: #00838F;
-  color: #eceff1;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2), 1px 1px 0 rgba(255, 255, 255, 0.25);
+  background: #00BCD4;
+  color: #263238;
 }
 
 input[type="submit"]:hover,
 button:hover,
 .dropdown ul li:hover,
 button.good:hover {
-  background: #00BCD4;
+  background: #03A9F4;
   color: #fff;
 }
 
 button.good:not(.hack):hover,
+input[type=submit]:not(.hack):hover,
 input[type="submit"]:not(.hack),
 button:not(.hack),
 .dropdown ul li:not(.hack),
@@ -85,18 +83,24 @@ button.good:not(.hack) {
 header input[type="submit"],
 header button,
 header .dropdown,
+.order button.good,
+header * {
+  font-family: 'Roboto Condensed', 'sans-serif';
+  font-size: 20px;
+}
+
+header input[type="submit"],
+header button,
+header .dropdown,
 .order button.good {
   border-radius: 0;
   display: inline-block;
-  font-size: 1.7em;
-  font-family: 'Alegreya Sans SC', sans-serif;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 
 .notice,
 .single-page {
-  border-top: 1px solid #f4f5fb;
   padding: 2em;
   width: 100%;
   height: 100%;
@@ -105,12 +109,14 @@ header .dropdown,
 }
 
 .good:not(.hack),
-button.good {
-  background: #4caf50;
+button.good,
+input[type=submit] {
+  background: #8BC34A;
 }
 
-button.good:hover {
-  background: #00e676;
+button.good:hover,
+input[type=submit]:hover {
+  background: #64DD17;
 }
 
 html {
@@ -139,7 +145,7 @@ html {
 }
 
 body {
-  font-family: 'Rubik', 'sans-serif';
+  font-family: 'Roboto', 'sans-serif';
   font-size: 13px;
   color: #37474f;
   background: #F5F5F5;
@@ -159,7 +165,7 @@ header {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  background: #006064;
+  background: #37474f;
   color: #eceff1;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -178,11 +184,11 @@ header .dropdown ul {
 }
 
 header .dropdown ul > li {
+  border-radius: 0;
   -webkit-box-shadow: none;
           box-shadow: none;
   height: 100%;
   height: 100%;
-  line-height: 120%;
 }
 
 footer {
@@ -216,6 +222,7 @@ main {
   table-layout: fixed;
   position: absolute;
   height: 100%;
+  min-width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -238,7 +245,7 @@ main {
   z-index: 10;
 }
 
-.full-scrollable tbody tr:first-child td:nth-child(4) {
+.full-scrollable tbody tr:first-child td:nth-child(3) {
   z-index: 9;
 }
 
@@ -262,7 +269,7 @@ main {
   content: ' \25B2';
 }
 
-.full-scrollable tbody tr:last-child td:nth-child(4) {
+.full-scrollable tbody tr:last-child td:nth-child(3) {
   z-index: 9;
 }
 
@@ -290,7 +297,8 @@ main {
 .full-scrollable thead th {
   background: #263238;
   color: #fff;
-  height: 3em;
+  height: 2.5em;
+  font-size: 14px;
 }
 
 .full-scrollable tr {
@@ -315,7 +323,6 @@ main {
 }
 
 .full-scrollable td:nth-child(2) {
-  font-variant: small-caps;
   vertical-align: middle;
   text-align: center;
 }
@@ -327,7 +334,6 @@ main {
 }
 
 input[type="search"] {
-  font-size: 1.7em;
   padding: 0;
   border-radius: 0;
   background: #eceff1;
@@ -338,6 +344,8 @@ input[type="search"] {
   height: 100%;
   width: 15%;
   min-width: 10em;
+  -webkit-transition: all 0.2s 0.1s;
+  transition: all 0.2s 0.1s;
 }
 
 input[type="search"]:focus {
@@ -345,13 +353,6 @@ input[type="search"]:focus {
   width: 35%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(90%, transparent), color-stop(90%, #b0bec5));
   background-image: linear-gradient(transparent, transparent 90%, #b0bec5 90%);
-  -webkit-transition: all 0.2s 0;
-  transition: all 0.2s 0;
-}
-
-input[type="search"]:not(:focus) {
-  -webkit-transition: all 0.2s 0.1s;
-  transition: all 0.2s 0.1s;
 }
 
 ::-webkit-input-placeholder {
@@ -433,7 +434,7 @@ input[type="search"]:not(:focus) {
   float: none;
   display: block;
   position: relative;
-  margin-top: -1px;
+  border-radius: 0;
 }
 
 .dropdown * {
@@ -455,12 +456,19 @@ input[type="search"]:not(:focus) {
   content: ' \25BC';
 }
 
+header .dropdown > ul > li:after {
+  font-size: 0.8em;
+  line-height: 1;
+  display: inline-block;
+  position: relative;
+  top: -0.05em;
+  left: 0.2em;
+}
+
 hr {
   margin: 0.3em;
   border: none;
   height: 1px;
-  width: 96%;
-  margin-left: 2%;
   background: rgba(0, 0, 0, 0.25);
 }
 
@@ -658,11 +666,10 @@ table tbody tr:hover td:not(.hack):not(.hack) {
 
 .header {
   background: #b0bec5;
-  color: #fff;
+  color: #263238;
   font-size: 1.2em;
   padding: 0.6em;
   text-align: center;
-  text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.33), 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 
 .order > .header {
@@ -679,6 +686,11 @@ table tbody tr:hover td:not(.hack):not(.hack) {
 .row.split {
   width: 50%;
   float: left;
+}
+
+.row.split.editable:focus-within .field {
+  background: #0277bd;
+  color: #fff;
 }
 
 .row.split.editable {
@@ -701,7 +713,7 @@ table tbody tr:hover td:not(.hack):not(.hack) {
   background: #fff;
   -webkit-box-shadow: inset 0 0.2em 0.3em 1px rgba(0, 0, 0, 0.25), 0 0.5em 1em rgba(0, 0, 0, 0.25);
           box-shadow: inset 0 0.2em 0.3em 1px rgba(0, 0, 0, 0.25), 0 0.5em 1em rgba(0, 0, 0, 0.25);
-  border: 2px solid #546e7a;
+  border: 2px solid #0277bd;
   outline: none;
   z-index: 10;
 }
@@ -726,13 +738,13 @@ table tbody tr:hover td:not(.hack):not(.hack) {
   max-width: 100%;
   min-width: 100%;
   height: 2em;
-  border: 2px solid #546e7a;
+  border: 2px solid #cfd8dc;
   -webkit-box-shadow: inset 0 0.2em 0.3em 1px rgba(0, 0, 0, 0.25);
           box-shadow: inset 0 0.2em 0.3em 1px rgba(0, 0, 0, 0.25);
 }
 
 .row.split:nth-child(odd) .value {
-  border-right: 2px solid #546e7a;
+  border-right: 2px solid #cfd8dc;
 }
 
 .row.split:nth-child(even) textarea:focus {
@@ -744,9 +756,8 @@ table tbody tr:hover td:not(.hack):not(.hack) {
 }
 
 .field {
-  background: #546e7a;
-  color: #fff;
-  text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.33), 1px 1px 0 rgba(0, 0, 0, 0.5);
+  background: #cfd8dc;
+  color: #263238;
 }
 
 .viewable {
@@ -776,11 +787,11 @@ div.value {
   background: #B71C1C;
   color: #FFEBEE;
   border-radius: 100%;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  width: 16px;
   margin-top: 2px;
-  line-height: 13px;
-  text-shadow: none;
+  line-height: 16px;
+  font-size: 16px;
   float: right;
 }
 
@@ -813,6 +824,11 @@ div.value {
 
 .removed .removed-message {
   display: block;
+}
+
+.total {
+  margin-bottom: 0;
+  float: right;
 }
 
 .Printed {
