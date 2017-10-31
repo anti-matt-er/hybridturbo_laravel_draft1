@@ -11,11 +11,12 @@ String.prototype.underscoreToWords = function() {
 	return str.ucwords();
 };
 
-function collectionItem() {
+function collectionItem(objectViewerModel) {
 	this.visible = ko.observable(true);
 	this.toggle = function() {
 		this.visible(!this.visible());
 	}
+	this.objectViewerModel = objectViewerModel;
 }
 
 function newItem(el) {
@@ -40,8 +41,14 @@ function newItem(el) {
 	};
 }
 
+var objectViewerModel = ko.mapping.fromJS(objectViewer);
+document.querySelectorAll('.exists').forEach(function (el) {
+	ko.applyBindings(objectViewerModel, el);
+});
+
 document.querySelectorAll('.collection').forEach(function (el) {
-	ko.applyBindings(new collectionItem(), el);
+	ko.cleanNode(el);
+	ko.applyBindings(new collectionItem(objectViewerModel), el);
 });
 
 document.querySelectorAll('.new-collection').forEach(function (el) {

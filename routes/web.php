@@ -32,17 +32,13 @@ Route::get('/order/{reference}', function ($reference) {
 Route::put('/{model}/{key}', function ($model, $key, Request $request) {
 	$model = "App\\Models\\" . ucfirst($model);
 	$resource = new $model;
-	//dump(Schema::getColumnListing($resource->getTable()));
 	$resource = $resource->find($key);
 	$newData = $request->data;
-	
-	//$changedData = [];
-	$resource = update_resource($resource, $newData);
-	//dump($changedData);
-
-	//$resource->update($expandedChangedData);
-	// UPDATE DOESN'T WORK FOR RELATIONSHIPS
-	dump($resource->toArray());
+	DB::transaction(function () use ($resource, $newData) {
+		$resource = update_resource($resource, $newData);
+		$resource->save();
+	});
+	return back();
 });
 
 Route::get('/orders/search', function() {
