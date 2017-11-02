@@ -11,6 +11,48 @@ String.prototype.underscoreToWords = function() {
 	return str.ucwords();
 };
 
+ko.extenders.format = function(target, parameters) {
+  var result = ko.pureComputed({
+    read: target,
+    write: function(newValue) {
+			var locale = {};
+			$.ajaxSettings.async = false;
+			$.getJSON('https://restcountries.eu/rest/v1/alpha/'+parameters.countryCode, function(data) {
+				locale = data;
+			});
+			$.ajaxSettings.async = true;
+      var current = target();
+			var formatting = {
+			  style: parameters.style,
+			  minimumFractionDigits: parameters.digits,
+				maximumFractionDigits: parameters.digits
+			};
+			var language = parameters.countryCode;
+			if (locale.languages[0] == 'en') {
+				var language = 'en-'+parameters.countryCode;
+			}
+			if (parameters.style == "currency") {
+				formatting.currency = locale.currencies[0];
+			}
+			var newNumber = newValue.replace(/[^\d\.]+/g, '');
+			if (isNaN(parseFloat(newNumber))) {
+				newNumber = 0;
+			}
+      var valueToWrite = new Intl.NumberFormat(language, formatting).format(newNumber);
+      if (valueToWrite !== current) {
+        target(valueToWrite);
+      } else {
+        if (newValue !== current) {
+          target.notifySubscribers(valueToWrite);
+        }
+      }
+    }
+  });
+
+  result(target());
+  return result;
+};
+
 function collectionItem(objectViewerModel) {
 	this.visible = ko.observable(true);
 	this.toggle = function() {
@@ -41,10 +83,25 @@ function newItem(el) {
 	};
 }
 
-var objectViewerModel = ko.mapping.fromJS(objectViewer);
-document.querySelectorAll('.exists').forEach(function (el) {
-	ko.applyBindings(objectViewerModel, el);
+document.querySelectorAll('[name]').forEach(function (el) {
+	var name = el.getAttribute('name').replace('.', '__');
+	objectViewer[name] = el.textContent;
+	var binding = 'value: objectViewerModel.'+name;
+	if (el.hasAttribute('data-format')) {
+		binding += '.extend({format: {'+el.getAttribute('data-format')+'}})';
+	}
+	el.setAttribute('data-bind', binding);
 });
+
+if (typeof(objectViewer) !== 'undefined') {
+	var objectViewerModel = ko.mapping.fromJS(objectViewer);
+	document.querySelectorAll('.exists').forEach(function (el) {
+		ko.applyBindings(objectViewerModel, el);
+	});
+	document.querySelectorAll('[name]').forEach(function (el) {
+		ko.applyBindings(objectViewerModel, el);
+	});
+}
 
 document.querySelectorAll('.collection').forEach(function (el) {
 	ko.cleanNode(el);

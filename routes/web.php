@@ -41,6 +41,27 @@ Route::put('/{model}/{key}', function ($model, $key, Request $request) {
 	return back();
 });
 
+Route::get('new/order', function() {
+	$order = new App\Models\Order();
+	$couriers = App\Models\Courier::all();
+	return view('new_order', [
+		'order' => $order,
+		'couriers' => $couriers
+	]);
+});
+
+Route::get('/new/{object}', function($object) {
+	$name = ucfirst($object);
+	$object = "App\\Models\\" . $name;
+	$object = new $object;
+	$fillable = $object->getFillable();
+	return view('new_object', [
+		'name' => $name,
+		'object' => $object,
+		'fillable' => $fillable
+	]);
+});
+
 Route::get('/orders/search', function() {
 	//dd('/orders/search/'.Input::get('q'));
 	return redirect('/orders/search/q/'.Input::get('q'));

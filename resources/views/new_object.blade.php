@@ -1,6 +1,6 @@
 @extends('global')
 
-@section('title', "$order->reference $order->order_id")
+@section('title', 'New '.$name)
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
@@ -10,24 +10,21 @@
 @endpush
 
 @section('content')
-<header>
-@include('orders_header')
-</header>
 <main>
 	<div class="single-page">
-		<form action="/order/{{ $order->reference }}" method="POST" class="order">
+		<form action="/{{ $name }}/{{ $object->getKey() }}" method="POST" class="order">
 			<input type="hidden" name="_method" value="PUT">
   		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			@include('object_viewer', ['object' => $order, 'first' => true])
+			<div class="header">New {{ $name }}</div>
+      <div class="nth-fixer"></div>
+      @foreach ($fillable as $field)
+        <div class="row split editable">
+          <div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
+          <textarea name="data[{{ $field }}]" class="value"></textarea>
+        </div>
+      @endforeach
 			<button class="good" type="submit">Save</button>
 		</form>
 	</div>
 </main>
 @endsection
-
-@push('scripts')
-	<script defer>
-		objectViewer = {};
-		@stack('objectViewerJavascript')
-	</script>
-@endpush

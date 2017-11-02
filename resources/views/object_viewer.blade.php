@@ -14,9 +14,9 @@
 	}
 	$jsAccessor = class_basename($object).'_'.$primaryKey;
 @endphp
-<script>
+@push('objectViewerJavascript')
 	objectViewer.{{ $jsAccessor }} = {};
-</script>
+@endpush
 @if (isset($object->iteratable) && $object->iteratable)
 	@include('object_header')
 	@foreach ($object->viewable as $field)
@@ -26,12 +26,12 @@
 	</div>
 	@endforeach
 	@foreach ($object->editable as $field)
-	<script>
+	@push('objectViewerJavascript')
 		objectViewer.{{ $jsAccessor }}.{{ $field }} = {!! json_encode($object->$field) !!}
-	</script>
+	@endpush
 	<div class="row split editable exists">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
-		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]" data-bind="textInput: {{ $jsAccessor }}.{{ $field }}">{{ $object->$field or '' }}</textarea>
+		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]" data-bind="textInput: objectViewerModel.{{ $jsAccessor }}.{{ $field }}">{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 	@foreach ($object->relationships as $field)
@@ -41,24 +41,7 @@
 			<div class="value">
 				@include('object_viewer', ['object' => $object->$field, 'first' => false, 'parentField' => $keyAccessor.$field, 'is_collection' => class_basename($object->$field) == 'Collection'])
 				@if (class_basename($object->$field) == 'Collection')
-					<div class="new-collection" data-model="{{ str_singular($field) }}">
-						<!-- ko foreach: $data.items -->
-						<div>
-							<div class="header good">
-								<span data-bind="text: 'New ' + $parent.model.underscoreToWords()"></span>
-								<a href="#" class="delete" data-bind="click:  $parent.removeItem">&minus;</a>
-							</div>
-							<div class="nth-fix"></div>
-							<!-- ko foreach: {data: rows, as: 'row'} -->
-							<div class="row split editable">
-								<div class="field" data-bind="text: row.underscoreToWords()"></div>
-								<textarea class="value" data-bind="attr: {name: 'data[{{ $keyAccessor }}{{ $field }}.'+($parentContext.$index()+{{ count($object->$field) }})+'.'+row+']'}"></textarea>
-							</div>
-							<!-- /ko -->
-						</div>
-						<!-- /ko -->
-						<button data-bind="click: addItem">Add new {{ str_singular($field) }}</button>
-					</div>
+					@include('object_new_collection', ['object' => $object, 'field' => $field])
 				@endif
 			</div>
 		</details>

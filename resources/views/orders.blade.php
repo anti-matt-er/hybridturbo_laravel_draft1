@@ -2,6 +2,10 @@
 
 @section('title', $title)
 
+@push('scripts')
+<script src="/js/sorttable.js"></script>
+@endpush
+
 @section('content')
 <header>
 @include('orders_header')

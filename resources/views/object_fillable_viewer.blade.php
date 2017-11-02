@@ -25,9 +25,9 @@
 @elseif ($fillable !== null)
 	@include('object_header')
 	@foreach ($fillable as $field)
-	<script>
+	@push('objectViewerJavascript')
 		objectViewer.{{ $jsAccessor }}.{{ $field }} = {!! json_encode($object->$field) !!};
-	</script>
+	@endpush
 	<div class="row split editable exists">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
 		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]" data-bind="textInput: objectViewerModel.{{ $jsAccessor }}.{{ $field }}">{{ $object->$field or '' }}</textarea>

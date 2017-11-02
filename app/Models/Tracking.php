@@ -11,10 +11,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Tracking
- * 
+ *
  * @property int $order_reference
  * @property string $tracking_number
- * 
+ *
  * @property \App\Models\Order $order
  *
  * @package App\Models
@@ -31,19 +31,20 @@ class Tracking extends Eloquent
 	];
 
 	protected $fillable = [
+		'tracking_number',
 		'order_reference'
 	];
 
 	public $iteratable = true;
 
-	public $viewable = [
+	public $viewable = [];
+
+	public $editable = [
 		'tracking_number'
 	];
-
-	public $editable = [];
-
-	public $relationships = [];
 	
+	public $relationships = [];
+
 	public function order()
 	{
 		return $this->belongsTo(\App\Models\Order::class, 'order_reference');
