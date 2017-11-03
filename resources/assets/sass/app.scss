@@ -633,9 +633,11 @@ table tbody tr {
 					width: 100%;
 					max-width: 100%;
 					min-width: 100%;
-					height: 2em;
-					border: 2px solid $color_steel;
-					box-shadow: inset 0 0.2em 0.3em 1px $color_25_black;
+					box-shadow: inset 0 0.2em 0.3em 1px $color_25_black,
+								0 0.5em 1em $color_25_black;
+					border: 2px solid $color_highlight;
+					outline: none;
+					z-index: 10;
 				}
 			}
 		}
