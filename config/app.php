@@ -231,6 +231,7 @@ return [
 
     ],
 
-    'faker_locale' => 'en_GB'
+    'faker_locale' => 'en_GB',
+    'country' => 'GB'
 
 ];

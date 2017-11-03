@@ -25,3 +25,12 @@ Route::get('/editable/{model}', function ($model) {
 	}
 	return $model->getFillable();
 });
+
+Route::get('/country', function () {
+	return config('app.country');
+});
+
+Route::get('/format/{model}/{field}/{raw}', function ($model, $field, $raw) {
+	$object = "App\\Models\\" . ucfirst($model);
+	return knockout_formatter(new $object, $field, $raw);
+});

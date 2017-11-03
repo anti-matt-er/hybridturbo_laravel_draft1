@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Product
- * 
+ *
  * @property int $order_item_id
  * @property string $sku
  * @property string $id
@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $price
  * @property float $shipping
  * @property int $quantity
- * 
+ *
  * @property \App\Models\Inventory $inventory
  * @property \Illuminate\Database\Eloquent\Collection $orders
  *
@@ -48,6 +48,11 @@ class Product extends Eloquent
 		'price',
 		'shipping',
 		'quantity'
+	];
+
+	public $formats = [
+		'price' => 'currency',
+		'shipping' => 'currency'
 	];
 
 	public function inventory()

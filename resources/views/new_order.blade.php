@@ -108,11 +108,11 @@
 			<div>
 				<div class="row split editable">
 					<div class="field">Total Price</div>
-					<textarea name="customer.total_price" class="value" data-format="style: 'currency', countryCode: 'GB', digits: 2">0.00</textarea>
+					<textarea name="customer.total_price" class="value" data-format="style: 'currency'">0.00</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Parcel Count</div>
-					<textarea name="customer.parcel_count" class="value">1</textarea>
+					<textarea name="customer.parcel_count" class="value" data-format="style: 'integer'">1</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Total Weight</div>

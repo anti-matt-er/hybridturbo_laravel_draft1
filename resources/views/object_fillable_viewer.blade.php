@@ -30,7 +30,7 @@
 	@endpush
 	<div class="row split editable exists">
 		<div class="field">{{ ucwords(str_replace('_', ' ', $field)) }}</div>
-		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]" data-bind="textInput: objectViewerModel.{{ $jsAccessor }}.{{ $field }}">{{ $object->$field or '' }}</textarea>
+		<textarea class="value" name="data[{{ $keyAccessor }}{{ $field }}]" data-bind="value: objectViewerModel.{{ $jsAccessor }}.{{ $field }}" {!! knockout_formatter($object, $field) !!}>{{ $object->$field or '' }}</textarea>
 	</div>
 	@endforeach
 @endif

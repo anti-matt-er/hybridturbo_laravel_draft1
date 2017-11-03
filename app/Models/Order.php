@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Order
- * 
+ *
  * @property int $reference
  * @property string $order_id
  * @property string $source
@@ -26,7 +26,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $courier_code
  * @property int $customer_id
  * @property int $address_id
- * 
+ *
  * @property \App\Models\Courier $courier
  * @property \App\Models\Customer $customer
  * @property \App\Models\Address $address
@@ -68,6 +68,10 @@ class Order extends Eloquent
 		'courier_code',
 		'customer_id',
 		'address_id'
+	];
+
+	public $formats = [
+		'total_price' => 'currency'
 	];
 
 	public $iteratable = true;
