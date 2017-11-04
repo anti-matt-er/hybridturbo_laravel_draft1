@@ -64,7 +64,7 @@
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Last Name</div>
-							<textarea name="data[address.first_name]" class="value"></textarea>
+							<textarea name="data[address.last_name]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Line 1</div>
@@ -108,19 +108,19 @@
 			<div>
 				<div class="row split editable">
 					<div class="field">Total Price</div>
-					<textarea name="data[customer.total_price]" class="value" data-format="style: 'currency'">0.00</textarea>
+					<textarea name="data[total_price]" class="value" data-format="style: 'currency'">0.00</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Parcel Count</div>
-					<textarea name="data[customer.parcel_count]" class="value" data-format="style: 'integer'">1</textarea>
+					<textarea name="data[parcel_count]" class="value" data-format="style: 'integer'">1</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Total Weight</div>
-					<textarea name="data[customer.weight]" class="value">0</textarea>
+					<textarea name="data[weight]" class="value">0</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Total Length</div>
-					<textarea name="data[customer.length]" class="value">0</textarea>
+					<textarea name="data[length]" class="value">0</textarea>
 				</div>
 			</div>
 			<button class="good" type="submit">Submit &amp; Process</button>

@@ -29,6 +29,83 @@ Route::get('/order/{reference}', function ($reference) {
 	]);
 });
 
+Route::put('/order', function (Request $request) {
+	$order = new App\Models\Order();
+	$data = $request->data;
+	$newData = [];
+	dump($data);
+	foreach ($data as $column => &$datum) {
+		$resource = $order;
+		$field = $column;
+		if (strpos($column, '.') !== false) {
+			$columns = explode('.', $column);
+			$resource = $columns[0];
+			$resource = "App\\Models\\$resource";
+			$resource = new $resource;
+			$field = $columns[1];
+		}
+		$type = get_field_type($resource, $field);
+		switch ($type) {
+			case 'integer':
+				$datum = preg_replace('/[^\d]/', '', $datum);
+				break;
+			case 'decimal':
+			case 'float':
+				$datum = preg_replace('/[^\d\.]/', '', $datum);
+				break;
+			default:
+				//do nothing
+		}
+		array_set($newData, $column, $datum);
+	}
+	$newData['source'] = 'Manual';
+	$newData['status'] = 'Printed';
+	$courier = $newData['courier_code'];
+	if (strrpos($courier, 'I') === (strlen($courier) -1)) {
+		$courier = substr($courier, 0, -1);
+		$newData['courier_code'] = $courier;
+		$integrated = true; //not sure what to do with this yet
+	}
+	$courier = App\Models\Courier::find($courier);
+	$services = explode(',', $courier->available_services);
+	$newData['service'] = $services[count($services)-1];
+	if (!$newData['address']['last_name']) {
+		$newData['address']['last_name'] = $newData['address']['first_name'];
+	}
+	dump($newData);
+	DB::transaction(function () use ($order, $newData) {
+		$orderData = $newData;
+		foreach($orderData as $field => &$value) {
+			if (is_array($value)) {
+				unset($value);
+			}
+		}
+		$address = App\Models\Address::create($newData['address']);
+		$orderData['address_id'] = $address->id;
+		$customer = $newData['customer'];
+		$customer['first_name'] = $address->first_name;
+		$customer['last_name'] = $address->last_name;
+		$customer['address_id'] = $address->id;
+		$customer = App\Models\Customer::create($customer);
+		$orderData['customer_id'] = $customer->id;
+		$order->fill($orderData);
+		if (array_key_exists('products', $newData)) {
+			foreach($newData['products'] as $product) {
+				$product = App\Models\Product::create($product);
+				$order->attach($product);
+			}
+		}
+		$order->save();
+		$time = App\Models\Ordertime::create([
+			'order_reference' => $order->reference,
+			'time_placed' => now(),
+			'time_retrieved' => now()
+		]);
+	});
+	dd($order->toArray());
+	return back();
+});
+
 Route::put('/{model}/{key}', function ($model, $key, Request $request) {
 	$model = "App\\Models\\" . ucfirst($model);
 	$resource = new $model;
