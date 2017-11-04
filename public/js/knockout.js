@@ -135,7 +135,16 @@ function newItem(el) {
 
 document.querySelectorAll('[data-format]').forEach(function (el) {
 	if (!el.hasAttribute('data-bind')) {
-		var name = el.getAttribute('name').replace('.', '__');
+		var nameExtractor = /^data\[(.*?)\]/g;
+		var name = nameExtractor.exec(el.getAttribute('name'));
+		console.log(name);
+		if (1 in name) {
+			name = name[1];
+		} else {
+			name = name[0];
+		}
+		name = name.replace('.', '__');
+		console.log(name);
 		objectViewer[name] = el.textContent;
 		var binding = 'value: objectViewerModel.'+name;
 	} else {

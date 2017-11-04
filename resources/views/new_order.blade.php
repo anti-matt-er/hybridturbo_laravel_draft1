@@ -23,11 +23,11 @@
 			<div>
 	      <div class="row split editable">
 	        <div class="field">Order ID</div>
-	        <textarea name="order_id" class="value"></textarea>
+	        <textarea name="data[order_id]" class="value"></textarea>
 	      </div>
 				<div class="row split editable">
 					<div class="field">Courier</div>
-					<select name="courier" class="value" required>
+					<select name="data[courier_code]" class="value" required>
 						<option value="" disabled selected>Please select an option...</option>
 						@foreach($couriers as $courier)
 							<option value="{{ $courier->code }}">{{ $courier->code }} - {{ $courier->name }}</option>
@@ -39,19 +39,19 @@
 				</div>
 				<div class="row split editable" required>
 					<div class="field">Account</div>
-					<textarea name="account" class="value">Elixir</textarea>
+					<textarea name="data[account]" class="value">Elixir</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Customer Email</div>
-					<textarea name="customer.email" class="value"></textarea>
+					<textarea name="data[customer.email]" class="value"></textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Customer Telephone Number</div>
-					<textarea name="customer.telephone" class="value"></textarea>
+					<textarea name="data[customer.telephone]" class="value"></textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Delivery Instructions</div>
-					<textarea name="order_message" class="value"></textarea>
+					<textarea name="data[order_message]" class="value"></textarea>
 				</div>
 			</div>
 			<div class="row">
@@ -60,39 +60,39 @@
 					<div class="value">
 						<div class="row split editable" required>
 							<div class="field">First Name</div>
-							<textarea name="address.first_name" class="value"></textarea>
+							<textarea name="data[address.first_name]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Last Name</div>
-							<textarea name="address.first_name" class="value"></textarea>
+							<textarea name="data[address.first_name]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Line 1</div>
-							<textarea name="address.line_1" class="value"></textarea>
+							<textarea name="data[address.line_1]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Line 2</div>
-							<textarea name="address.line_2" class="value"></textarea>
+							<textarea name="data[address.line_2]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Line 3</div>
-							<textarea name="address.line_3" class="value"></textarea>
+							<textarea name="data[address.line_3]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">City</div>
-							<textarea name="address.city" class="value"></textarea>
+							<textarea name="data[address.city]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Region</div>
-							<textarea name="address.region" class="value"></textarea>
+							<textarea name="data[address.region]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Postal Code</div>
-							<textarea name="address.postal_code" class="value"></textarea>
+							<textarea name="data[address.postal_code]" class="value"></textarea>
 						</div>
 						<div class="row split editable" required>
 							<div class="field">Country Code</div>
-							<textarea name="address.country_code" class="value">GB</textarea>
+							<textarea name="data[address.country_code]" class="value">GB</textarea>
 						</div>
 					</div>
 				</details>
@@ -108,19 +108,19 @@
 			<div>
 				<div class="row split editable">
 					<div class="field">Total Price</div>
-					<textarea name="customer.total_price" class="value" data-format="style: 'currency'">0.00</textarea>
+					<textarea name="data[customer.total_price]" class="value" data-format="style: 'currency'">0.00</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Parcel Count</div>
-					<textarea name="customer.parcel_count" class="value" data-format="style: 'integer'">1</textarea>
+					<textarea name="data[customer.parcel_count]" class="value" data-format="style: 'integer'">1</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Total Weight</div>
-					<textarea name="customer.weight" class="value">0</textarea>
+					<textarea name="data[customer.weight]" class="value">0</textarea>
 				</div>
 				<div class="row split editable">
 					<div class="field">Total Length</div>
-					<textarea name="customer.length" class="value">0</textarea>
+					<textarea name="data[customer.length]" class="value">0</textarea>
 				</div>
 			</div>
 			<button class="good" type="submit">Submit &amp; Process</button>
