@@ -22,6 +22,20 @@ Route::get('/orders', function () {
     ]);
 });
 
+Route::get('/invoice/random', function () {
+	$order = App\Models\Order::inRandomOrder()->first();
+	return view('invoices', [
+		'orders' => [$order]
+	]);
+});
+
+Route::get('/invoice/{reference}', function ($reference) {
+	$order = App\Models\Order::find($reference);
+	return view('invoices', [
+		'orders' => [$order]
+	]);
+});
+
 Route::get('/order/{reference}', function ($reference) {
 	$order = App\Models\Order::find($reference);
 	return view('order', [
@@ -103,7 +117,7 @@ Route::put('/order', function (Request $request) {
 		]);
 	});
 	dd($order->toArray());
-	return back();
+	return redirect("/invoice/$order->reference");
 });
 
 Route::put('/{model}/{key}', function ($model, $key, Request $request) {

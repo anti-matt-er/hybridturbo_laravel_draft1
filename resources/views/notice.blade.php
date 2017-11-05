@@ -1,3 +1,3 @@
 <div class="notice">
-	<span>{{ $message }}</span>
+	<span>{{ $message or 'Nothing to display' }}</span>
 </div>

@@ -1,0 +1,194 @@
+$a4_width: 210mm;
+$a4_height: 297mm;
+$page_margin: 5mm;
+
+html, body {
+ 	height: 100%;
+ 	margin: 0
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /* PREVIEW */
+  background: silver;
+}
+
+article {
+	background: white;
+  color: black;
+	display: flex;
+  flex-flow: column;
+  width: $a4_width;
+  min-width: $a4_width;
+  max-width: $a4_width;
+	height: $a4_height;
+  min-height: $a4_height;
+  max-height: $a4_height;
+  padding: $page_margin;
+  /* PREVIEW */
+  box-shadow: $page_margin $page_margin $page_margin grey;
+  margin: 1cm auto;
+}
+
+header, main, footer {
+  display: flex;
+  flex-flow: row;
+  border: 0.5mm solid;
+  border-bottom: none;
+}
+
+header {
+  flex-wrap: wrap;
+  align-items: flex-end;
+  align-content: flex-end;
+  border-top-left-radius: $page_margin;
+  border-top-right-radius: $page_margin;
+}
+
+main {
+  flex: 1 1 auto;
+  flex-flow: column;
+}
+
+footer {
+  border-top: none;
+  border-bottom: 0.5mm solid;
+  border-bottom-left-radius: $page_margin;
+  border-bottom-right-radius: $page_margin;
+  padding: 5mm;
+}
+
+.company {
+  flex: 1 1 70%;
+  padding: 3mm;
+}
+
+.shipping {
+  flex: 0 1 30%;
+  padding: 3mm;
+}
+
+.customer {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+}
+
+.column:first-child {
+  min-width: 40%;
+}
+
+.column:last-child {
+  flex: 1 1 auto;
+}
+
+.column p {
+  border: 0.5mm solid;
+  border-bottom: none;
+  border-right: none;
+}
+
+.column p[title]:before {
+  display: block;
+  float: left;
+  content: attr(title);
+  background: black;
+  width: 3cm;
+  color: white;
+  padding-left: 2mm;
+  margin-right: 2mm;
+}
+
+.info {
+  padding: 5mm;
+}
+
+.total {
+  text-align: right;
+  margin-bottom: 5mm;
+}
+
+.message {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+.tax, .price {
+  white-space: nowrap;
+}
+
+.no-items {
+  padding: 1cm;
+  margin-top: 30%;
+  text-align: center;
+}
+
+td.price {
+  text-align: right;
+}
+
+thead {
+  background: black;
+  color: white;
+}
+
+sub {
+  vertical-align: baseline;
+  font-size: 0.7em;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 1.8em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+p {
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+}
+
+table img {
+  width: 1.5cm;
+  max-height: 1.5cm;
+  border: 0.5mm solid;
+}
+
+article.Manual .sku,
+article.Manual .img {
+  display: none;
+}
+
+td {
+  padding: 2mm;
+}
+
+.additional {
+  flex: 1 1 auto;
+}
+
+.courier {
+  width: 90mm;
+  height: 60mm;
+  border: 0.5mm dashed;
+  padding: 5mm;
+  font-size: 1.2em;
+  font-style: normal;
+  line-height: 1.2;
+}
