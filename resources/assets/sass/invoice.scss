@@ -79,17 +79,19 @@ footer {
 }
 
 .column:first-child {
-  min-width: 40%;
+  flex: 1 1 auto;
 }
 
 .column:last-child {
-  flex: 1 1 auto;
+  flex: 1 1 60%;
 }
 
 .column p {
   border: 0.5mm solid;
   border-bottom: none;
   border-right: none;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .column p[title]:before {
@@ -132,10 +134,6 @@ td.price {
   text-align: right;
 }
 
-thead {
-  background: black;
-  color: white;
-}
 
 sub {
   vertical-align: baseline;
@@ -164,15 +162,33 @@ table {
   max-width: 100%;
 }
 
+thead {
+  background: black;
+  color: white;
+}
+
+th {
+  padding: 1mm 2mm;
+  text-align: left;
+}
+
 table img {
   width: 1.5cm;
   max-height: 1.5cm;
   border: 0.5mm solid;
 }
 
+article.Manual .price {
+  text-align: right;
+}
+
 article.Manual .sku,
 article.Manual .img {
   display: none;
+}
+
+article.Manual .item {
+  width: 70%;
 }
 
 td {

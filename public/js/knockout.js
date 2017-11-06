@@ -1,3 +1,5 @@
+ko.options.deferUpdates = true;
+
 if (typeof countryCode === 'undefined') {
 	var countryCode;
 	$.ajax({
@@ -104,29 +106,36 @@ function newItem(el) {
 	var self = this;
 	self.items = ko.observableArray([]);
 	self.editable = [];
-	self.editableValues = {};
 	self.model = el.getAttribute('data-model');
 	self.init = function() {
 		$.getJSON('/api/editable/'+self.model, function(data) {
 			data.forEach(function (datum) {
 				self.editable.push(datum);
-				self.editableValues[datum] = ko.observable();
-				$.ajax({
-					type: 'GET',
-					url: '/api/format/'+self.model+'/'+datum+'/true',
-					success: function(formatting) {
-						if (formatting) {
-							self.editableValues[datum] = ko.observable().extend({format: JSON.parse(formatting)});
-						}
-					}
-				});
 			});
 		});
 	};
 	self.addItem = function() {
-		self.items.push({
-			rows: self.editable
+		var toPush = {
+			rows: self.editable,
+			values: {}
+		};
+		self.editable.forEach(function (datum) {
+			$.ajax({
+				type: 'GET',
+				url: '/api/format/'+self.model+'/'+datum+'/true',
+				success: function(formatting) {
+					if (formatting) {
+						toPush.values[datum] = ko.observable('doge').extend({format: JSON.parse(formatting)});
+					} else {
+						toPush.values[datum] = ko.observable('simple doge');
+					}
+				},
+				failure: function() {
+					toPush.values[datum] = ko.observable('sad doge');
+				}
+			});
 		});
+		self.items.push(toPush);
 	};
 	self.removeItem = function() {
 		self.items.remove(this);

@@ -14,7 +14,7 @@
     <!-- ko foreach: {data: rows, as: 'row'} -->
     <div class="row split editable">
       <div class="field" data-bind="text: row.underscoreToWords()"></div>
-      <textarea class="value" data-bind="attr: {name: 'data[{{ $keyAccessor or ''}}{{ $field }}.'+($parentContext.$index()+{{ $count or 0 }})+'.'+row+']'}, value: $parents[1].editableValues[row]"></textarea>
+      <textarea class="value" data-bind="attr: {name: 'data[{{ $keyAccessor or ''}}{{ $field }}.'+($parentContext.$index()+{{ $count or 0 }})+'.'+row+']'}, value: $parentContext.$rawData.values[row]"></textarea>
     </div>
     <!-- /ko -->
   </div>

@@ -47,13 +47,16 @@ Route::put('/order', function (Request $request) {
 	$order = new App\Models\Order();
 	$data = $request->data;
 	$newData = [];
-	dump($data);
 	foreach ($data as $column => &$datum) {
 		$resource = $order;
 		$field = $column;
 		if (strpos($column, '.') !== false) {
 			$columns = explode('.', $column);
 			$resource = $columns[0];
+			if (str_singular($resource) !== $resource) {
+				$resource = str_singular($resource);
+				$columns[1] = $columns[2];
+			}
 			$resource = "App\\Models\\$resource";
 			$resource = new $resource;
 			$field = $columns[1];
@@ -86,7 +89,6 @@ Route::put('/order', function (Request $request) {
 	if (!$newData['address']['last_name']) {
 		$newData['address']['last_name'] = $newData['address']['first_name'];
 	}
-	dump($newData);
 	DB::transaction(function () use ($order, $newData) {
 		$orderData = $newData;
 		foreach($orderData as $field => &$value) {
@@ -97,16 +99,22 @@ Route::put('/order', function (Request $request) {
 		$address = App\Models\Address::create($newData['address']);
 		$orderData['address_id'] = $address->id;
 		$customer = $newData['customer'];
-		$customer['first_name'] = $address->first_name;
-		$customer['last_name'] = $address->last_name;
-		$customer['address_id'] = $address->id;
-		$customer = App\Models\Customer::create($customer);
+		$existingCustomer = App\Models\Customer::where('email', $customer['email'])->first();
+		if ($existingCustomer) {
+			$customer = $existingCustomer;
+		} else {
+			$customer['first_name'] = $address->first_name;
+			$customer['last_name'] = $address->last_name;
+			$customer['address_id'] = $address->id;
+			$customer = App\Models\Customer::create($customer);
+		}
 		$orderData['customer_id'] = $customer->id;
 		$order->fill($orderData);
+		$order->save();
 		if (array_key_exists('products', $newData)) {
 			foreach($newData['products'] as $product) {
 				$product = App\Models\Product::create($product);
-				$order->attach($product);
+				$order->products()->attach($product);
 			}
 		}
 		$order->save();
@@ -116,7 +124,6 @@ Route::put('/order', function (Request $request) {
 			'time_retrieved' => now()
 		]);
 	});
-	dd($order->toArray());
 	return redirect("/invoice/$order->reference");
 });
 
